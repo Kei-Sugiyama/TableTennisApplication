@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>LOGIN PAGE</title>
+<style>
+	*,
+	*::before,
+	*::after {
+	  margin: 0;
+	  padding: 0;
+	  box-sizing: border-box;
+	}
+	header {margin:10px;}
+	.form{margin: 0px 0px 0px 5px;}
+	.form__input {margin:0px 0px 10px 0px;}
+	
+</style>
 </head>
 <body>
-
+	<header>
+		<h2>LOGIN</h2>
+	</header>
+    <main>	
+		<form class="form" action="index.html" th:action="@{/index}">
+			<div class="form__input">
+				<label for="userId">ユーザーID：</label>
+				<input type="text" id="userId" name="userId">
+			</div>
+			<div class="form__input">
+				<label for="pass">パスワード：</label>
+				<input type="password" id="pass" name="pass">
+			</div>
+			<div class="form__action">
+				 <button type="submit">ログイン</button>
+			</div>
+		</form>
+	</main>
+	<footer>
+		
+	</footer>
 </body>
 </html>

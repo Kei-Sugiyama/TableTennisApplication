@@ -22,14 +22,14 @@
 		<h2>LOGIN</h2>
 	</header>
     <main>	
-		<form class="form" action="index.html" th:action="@{/index}">
+		<form class="form" action="index.html" th:action="@{/login}" method="post">
 			<div class="form__input">
 				<label for="userId">ユーザーID：</label>
 				<input type="text" id="userId" name="userId">
 			</div>
 			<div class="form__input">
-				<label for="pass">パスワード：</label>
-				<input type="password" id="pass" name="pass">
+				<label for="password">パスワード：</label>
+				<input type="password" id="pass" name="password">
 			</div>
 			<div class="form__action">
 				 <button type="submit">ログイン</button>

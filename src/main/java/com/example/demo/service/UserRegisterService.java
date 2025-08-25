@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserRegisterService implements RegisterService {
 	private final UserRegisterRepository userRegisterRepository;
+	private final PasswordEncoder passwordEncoder;
 	
 	@Override
 	@Transactional
@@ -23,7 +25,7 @@ public class UserRegisterService implements RegisterService {
 			LoginUser loginUser = new LoginUser();
 			loginUser.setUserId(form.getUserId());
 			loginUser.setUserName(form.getUserName());
-			loginUser.setPassword(form.getPassword());
+			loginUser.setPassword(passwordEncoder.encode(form.getPassword()));
 			loginUser.setRole(form.getRole());
 			userRegisterRepository.save(loginUser);
 			return null;

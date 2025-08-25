@@ -6,7 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MatchRecordsController {
 	@GetMapping("/records")
-	public String showRecord() {
+	public String showRecords() {
 		return "records";
+	}
+	@GetMapping("/registerRecord")
+	public String showRegisterRecord() {
+		return "registerRecord";
 	}
 }

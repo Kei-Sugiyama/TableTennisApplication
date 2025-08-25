@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>LOGIN PAGE</title>
@@ -15,7 +16,7 @@
 	.error {color:red;}
 	.form{margin: 0px 0px 0px 5px;}
 	.form__input {margin:0px 0px 10px 0px;}
-	
+	.form__action {margin:0px 0px 10px 0px;}	
 </style>
 </head>
 <body>
@@ -39,6 +40,9 @@
 				 <button type="submit">ログイン</button>
 			</div>
 		</form>
+		<p class="register">
+			<a href="register.html" th:href="@{/register}">会員登録</a>	
+		</p>
 	</main>
 	<footer>
 		

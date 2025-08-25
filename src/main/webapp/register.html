@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+</head>
+<body>
+	<header>
+		<h2>会員登録</h2>
+	</header>
+	<main>
+		<form class="form" action="registerOk.html" th:action="@{/register}" method="post" th:object="${registerForm}">
+			<div class="form__input">
+				<label for="userId">ユーザーID：</label>
+				<input type="text" id="userId" name="userId">
+				<p th:if="${#fields.hasErrors('userId')}" th:error="*{userId}"></p>
+			</div>
+			<div class="form__input">
+				<label for="userName">ユーザー名：</label>
+				<input type="text" id="userName" name="userName">
+			</div>
+			<div class="form__input">
+				<label for="password">パスワード：</label>
+				<input type="password" id="password" name="password">
+			</div>
+			<div class="form__input">
+				<input type="hidden" id="role" name="role" value="GENERAL">
+			</div>
+			<div class="form__action">
+				<button type="submit">登録</button>
+			</div>
+		</form>
+	</main>
+</body>
+</html>

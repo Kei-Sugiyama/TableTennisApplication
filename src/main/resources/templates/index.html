@@ -9,12 +9,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<header>
 		<h1>TOP PAGE</h1>
 	</header>
-	<p sec:authorize="authenticated">ようこそ
+	<p sec:authorize="authenticated">ようこそ、
 		<span sec:authentication="principal.username">ユーザー</span>さん
 	</p> 
     <main>
 		<ul>
 			<li sec:authorize="not authenticated"><a href="login.html" th:href="@{/login}">LOGIN</a></li>
+			
+			<li sec:authorize="authenticated"><a href="records.html" th:href="@{/records}">Match Records</a></li>
 			<li sec:authorize="authenticated"><a href="login.html" th:href="@{/login}">EXIT</a></li>
 		</ul>
 		

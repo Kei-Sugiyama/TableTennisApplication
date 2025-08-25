@@ -30,7 +30,7 @@ public class SecurityConfig {
 	        .logout(logout -> logout
 	            .logoutSuccessUrl("/")
 	        );
-
+		
 	    return http.build();
 	}
 }

@@ -12,6 +12,7 @@
 	  box-sizing: border-box;
 	}
 	header {margin:10px;}
+	.error {color:red;}
 	.form{margin: 0px 0px 0px 5px;}
 	.form__input {margin:0px 0px 10px 0px;}
 	
@@ -21,7 +22,10 @@
 	<header>
 		<h2>LOGIN</h2>
 	</header>
-    <main>	
+    <main>
+		<p th:if="${param.error!=null}" class="error">
+			ユーザー名またはパスワードが違います。	
+		</p>	
 		<form class="form" action="index.html" th:action="@{/login}" method="post">
 			<div class="form__input">
 				<label for="userId">ユーザーID：</label>

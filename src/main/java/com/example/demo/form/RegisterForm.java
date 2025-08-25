@@ -16,7 +16,7 @@ public class RegisterForm {
 	private String userName;
 	@NotNull
 	@Pattern(regexp="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\p{P}).{4,20}$",
-			message="英大文字、英小文字、数字、記号を4～20字入力してください")
+			message="英大文字、英小文字、数字、記号を少なくとも1字ずつ使用し、4～20字入力してください。")
 	private String password;
 	@NotNull
 	@Pattern(regexp="GENERAL|ADMIN")

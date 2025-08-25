@@ -5,6 +5,19 @@
 <meta charset="UTF-8">
 <title>Registration</title>
 </head>
+<style>
+	*,
+	*::before,
+	*::after {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		}
+	header {margin:10px;}
+	.form__input{margin:0px 0px 10px 0px;}
+	.form_error{color:red}
+	.form__action{margin:0px 0px 10px 0px;}
+</style>
 <body>
 	<header>
 		<h2>会員登録</h2>
@@ -14,15 +27,18 @@
 			<div class="form__input">
 				<label for="userId">ユーザーID：</label>
 				<input type="text" id="userId" name="userId">
-				<p th:if="${#fields.hasErrors('userId')}" th:error="*{userId}"></p>
+				<p class="form_error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></p>
+				<p class="form_error" th:if="${message!=null}" th:text="${message}"></p>
 			</div>
 			<div class="form__input">
 				<label for="userName">ユーザー名：</label>
 				<input type="text" id="userName" name="userName">
+				<p class="form_error" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></p>
 			</div>
 			<div class="form__input">
 				<label for="password">パスワード：</label>
 				<input type="password" id="password" name="password">
+				<p class="form_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 			</div>
 			<div class="form__input">
 				<input type="hidden" id="role" name="role" value="GENERAL">
@@ -31,6 +47,7 @@
 				<button type="submit">登録</button>
 			</div>
 		</form>
+		<a href="login.html" th:href="@{/login}">ログインページへ</a>
 	</main>
 </body>
 </html>

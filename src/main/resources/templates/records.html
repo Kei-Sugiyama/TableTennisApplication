@@ -17,7 +17,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	</header>
 	<main>
 		<p><a href="registerRecord.html" th:href="@{/registerRecord}">試合結果登録</a></p>
-		<table class="table" border="1">
+		<table class="table" border="1" th:object="">
 			<thead>
 				<tr>
 					<th>大会名</th>
@@ -32,7 +32,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<td>〇〇オープン</td>
 					<td>テス男</td>
 					<td class="table__wideCell">3</td>
-					<td class="table__wideCell">11-9<br>11-8<br>7-11<br>11-8</td>
+					<td class="table__wideCell">11-9<br>11-8<br>7-11<br>11-8<br>-</td>
 					<td class="table__wideCell">1</td>					
 					<td>テス子</td>
 					<td>2025/8/25</td>

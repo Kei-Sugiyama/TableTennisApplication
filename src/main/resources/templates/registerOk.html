@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Registraion Success</title>
+<style>
+	*,
+	*::before,
+	*::after {
+		  margin: 0;
+		  padding: 0;
+		  box-sizing: border-box;
+		}
+	.table{margin: 15px 0px 15px 0px;}
+	.table__wideCell{width:160px;
+					text-align: left;}
+</style>
 </head>
 <body>
-
+	<header>
+		<h2>登録完了</h2>
+	</header>
+	<main>
+		<table class="table" th:object="${registerForm}">
+			<thead>
+				<tr>
+					<th class="table__wideCell">ユーザーID</th>
+					<th class="table__wideCell">ユーザー名</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="table__wideCell" th:text="*{userId}">test1</td>
+					<td class="table__wideCell" th:text="*{userName}">山田 太郎</td>
+				</tr>
+			</tbody>
+		</table>
+		<a href="login.html" th:href="@{/login}">ログインページへ</a>
+	</main>
+	
 </body>
 </html>

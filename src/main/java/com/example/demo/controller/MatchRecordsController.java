@@ -16,7 +16,8 @@ public class MatchRecordsController {
 	
 	@GetMapping("/records")
 	public String showRecords(@RequestParam String userId,Model model) {
-		//model.addAttribute("matchRecords", matchRecordsService.findUserRecords(userId));
+		//model.addAttribute("matchesRecords", matchRecordsService.findUserMatches(userId));
+		//model.addAttribute("scoresRecords", matchRecordsService.findUserScores(userId));		
 		return "records";
 	}
 	@GetMapping("/registerRecord")

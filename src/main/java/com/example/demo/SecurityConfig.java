@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 	@Bean
 	PasswordEncoder passwordEncoder() { 
-		return new BCryptPasswordEncoder(); //passwordのhash化
+		return new BCryptPasswordEncoder(); 
 	} 
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{

@@ -16,7 +16,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<ul>
 			<li sec:authorize="not authenticated"><a href="login.html" th:href="@{/login}">LOGIN</a></li>
 			
-			<li sec:authorize="authenticated"><a href="records.html" th:href="@{/records}">Match Records</a></li>
+			<li sec:authorize="authenticated"><a href="records.html"
+				 th:href="@{/records(userId=${principal.userId})}">
+				Match Records</a>
+			</li>
 			<li sec:authorize="authenticated"><a href="login.html" th:href="@{/login}">EXIT</a></li>
 		</ul>
 		

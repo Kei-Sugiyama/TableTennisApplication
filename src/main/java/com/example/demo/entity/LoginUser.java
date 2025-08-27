@@ -20,7 +20,7 @@ public class LoginUser {
 	private String userId;
 	@Column(nullable=false,unique=true,name="user_name")
 	private String userName;
-	@Column(nullable=false)
+	@Column(nullable=false,name="hash_password")
 	private String password;
 	@Column(nullable=false)
 	private String role;

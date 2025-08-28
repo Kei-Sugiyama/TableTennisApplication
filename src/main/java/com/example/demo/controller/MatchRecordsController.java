@@ -15,10 +15,16 @@ public class MatchRecordsController {
 	private final MatchRecordsService matchRecordsService;
 	
 	@GetMapping("/records")
-	public String showRecords(@RequestParam Integer id,Model model) {
-		model.addAttribute("matchesRecords", matchRecordsService.findUserRecords(id));		
+	public String showRecords(@RequestParam String userId,Model model) {
+		model.addAttribute("matchesRecords", matchRecordsService.findUserRecords(userId));		
 		return "records";
 	}
+	@GetMapping("/recordsProperty")
+	public String showRecordsProperty(@RequestParam Integer id, Model model) {
+		//model.addAttribute("matchesRecords",);//serviceに試合の詳細情報を取得させる
+		return "recordsProperty";
+	}
+	
 	@GetMapping("/registerRecord")
 	public String showRegisterRecord() {
 		return "registerRecord";

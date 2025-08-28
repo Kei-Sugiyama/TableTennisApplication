@@ -17,9 +17,9 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 	private final MatchRecordsRepository matchRecordsRepository;
 	
 	@Transactional
-	public List<RecordDTO> findUserRecords(Integer id){
+	public List<RecordDTO> findUserRecords(String userId){
 	//ユーザーIDのすべての試合結果をRepositoryに検索させる
-		List <RecordDTO> list = matchRecordsRepository.findByUserId(id);
+		List <RecordDTO> list = matchRecordsRepository.findByUserId(userId);
 		for(RecordDTO record:list) {
 			Integer matchId = record.getId();
 			//各セットのスコアを取得・登録
@@ -38,5 +38,10 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 		}
 		return list;
 	}
+	
+	/*@Transactional
+	public List<RecordDTO> findUserRecordsProperties(Integer id){
+		
+	}*/
 
 }

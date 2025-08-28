@@ -21,7 +21,6 @@ public class MatchRecordsController {
 	}
 	@GetMapping("/recordsProperty")
 	public String showRecordsProperty(@RequestParam String userId, Model model) {
-	
 		model.addAttribute("matchesRecordsProperties",matchRecordsService.findUserRecordsProperties(userId));//serviceに試合の詳細情報を取得させる
 		return "recordsProperty";
 	}

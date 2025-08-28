@@ -14,7 +14,7 @@ import com.example.demo.entity.Matches;
 
 public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
 	@Query("SELECT new com.example.demo.dto.RecordDTO(m.id, m.date, m.name, u.userName, m.rivalName) "
-	            + "FROM Matches m JOIN m.users u WHERE u.userId = :userId")
+	            + "FROM Matches m JOIN m.users u WHERE u.userId = :userId ORDER BY m.id Desc")
 	public List<RecordDTO> findByUserId(@Param("userId")String userId);
 	
 	@Query("SELECT new com.example.demo.dto.RecordScoresDTO(s.userScore,s.rivalScore)"
@@ -22,7 +22,7 @@ public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
 	public List<RecordScoresDTO> findByMatchId(@Param("matchId")Integer matchId);
 	
 	@Query("SELECT new com.example.demo.dto.RecordPropertiesDTO(m.id, m.date, m.name, u.userName,"
-			+ " m.rivalName, m.comment) FROM Matches m JOIN m.users u WHERE u.userId = :userId")
+			+ " m.rivalName, m.comment) FROM Matches m JOIN m.users u WHERE u.userId = :userId ORDER BY m.id Desc")
 	public List<RecordPropertiesDTO> findPropertiesByUserId(@Param("userId")String userId);
 	
 	@Query("SELECT new com.example.demo.dto.RecordScoresPropertiesDTO(s.userScore,s.rivalScore,s.comment)"

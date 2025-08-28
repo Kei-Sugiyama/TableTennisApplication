@@ -47,7 +47,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<td class="table__wideCell--set" th:text="${record.rivalSet}">0</td>					
 					<td th:text="${record.rivalName}">テス子</td>
 					<td class="table__wideCell--property">
-						<a href="@{/recordsProperty(userId=${#authentication.principal.userId})}">詳細</a></td>
+						<a href="recordsProperty.html" th:href="@{/recordsProperty(userId=${#authentication.principal.userId})}">詳細</a>
+					</td>
 				</tr>
 			</tbody>
 		</table>

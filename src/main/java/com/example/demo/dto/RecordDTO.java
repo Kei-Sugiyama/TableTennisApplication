@@ -13,6 +13,8 @@ public class RecordDTO {
 	private  String matchName;
 	private  String userName;
 	private  String rivalName;
+	private Integer userSet =0;
+	private Integer rivalSet = 0;
 	private  List<RecordScoresDTO> recordScores;
 	
 	//JPQL用コンストラクタ

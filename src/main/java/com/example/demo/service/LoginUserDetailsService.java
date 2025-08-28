@@ -25,6 +25,8 @@ public class LoginUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("Not found user"); 
 		}
 		else {
+			//debug
+			System.out.println(loginUser);
 			return new LoginUserDetails(loginUser);
 		}
 	}

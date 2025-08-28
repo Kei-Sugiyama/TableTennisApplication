@@ -13,17 +13,28 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class MatchRecordsServiceImpl {
+public class MatchRecordsServiceImpl implements MatchRecordsService{
 	private final MatchRecordsRepository matchRecordsRepository;
 	
 	@Transactional
-	public List<RecordDTO> findUserRecords(String userId){
+	public List<RecordDTO> findUserRecords(Integer id){
 	//ユーザーIDのすべての試合結果をRepositoryに検索させる
-		List <RecordDTO> list = matchRecordsRepository.findByUserId(userId);
+		List <RecordDTO> list = matchRecordsRepository.findByUserId(id);
 		for(RecordDTO record:list) {
 			Integer matchId = record.getId();
+			//各セットのスコアを取得・登録
 			List<RecordScoresDTO> scoresList = matchRecordsRepository.findByMatchId(matchId);
 			record.setRecordScores(scoresList);
+			
+			//獲得セット数の計算・登録
+			for(RecordScoresDTO scores:scoresList) {
+				if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
+					record.setUserSet(record.getUserSet() + 1);
+				}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
+					record.setRivalSet(record.getRivalSet() + 1);
+				}
+			}
+		
 		}
 		return list;
 	}

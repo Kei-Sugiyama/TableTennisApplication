@@ -22,6 +22,6 @@ public class Users {
 	private String userName;
 	@Column(nullable = false ,name="hash_password")
     private String hashPassword;
-	@Column(nullable = false ,name="hash_password")
+	@Column(nullable = false ,name="role")
 	private String role;
 }

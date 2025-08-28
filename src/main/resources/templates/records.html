@@ -5,7 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <meta charset="UTF-8">
 <title>Match Records</title>
 <style>
-	.table__wideCell--set{width: 40px;
+	.table__wideCell--set{width: 50px;
 						text-align: center;
 						font-size: 18px;
 						}
@@ -21,7 +21,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	</header>
 	<main>
 		<p><a href="registerRecord.html" th:href="@{/registerRecord}">試合結果登録</a></p>
-		<table class="table" border="1" th:object="${matchRecords}">
+		<table class="table" border="1" >
 			<thead>
 				<tr>
 					<th>日付</th>
@@ -32,15 +32,20 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<th>詳細</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody th:each="record : ${matchesRecords}">
 				<tr>
-					<td>2025/8/25</td>
-					<td>厚木オープン1試合目</td>
-					<td>テス男</td>
-					<td class="table__wideCell--set">3</td>
-					<td class="table__wideCell--set">11-9<br>11-8<br>7-11<br>11-8<br>-</td>
-					<td class="table__wideCell--set">1</td>					
-					<td>テス子</td>
+					<td th:text="${record.date}">2025/8/25</td>
+					<td th:text="${record.matchName}">厚木オープン1試合目</td>
+					<td th:text="${record.userName}">テス男</td>
+					<td class="table__wideCell--set" th:text="${record.userSet}">3</td>
+					<td class="table__wideCell--set">
+						<span th:each="scores : ${record.recordScores}">
+							[[${scores.userScore}]]-[[${scores.rivalScore}]]
+						</span>
+						<br>
+					</td>
+					<td class="table__wideCell--set" th:text="${record.rivalSet}">0</td>					
+					<td th:text="${record.rivalName}">テス子</td>
 					<td class="table__wideCell--property"><a href="">詳細</a></td>
 				</tr>
 			</tbody>

@@ -26,6 +26,11 @@ public class LoginUserDetails implements UserDetails {
 	 public String getUserId() { 
 		  return loginUser.getUserId(); 
 	 }
+	 
+	 public Integer getId() {
+		 return loginUser.getId();
+	 }
+	 
 	 @Override 
 	 public String getUsername() { 
 	     return loginUser.getUserName(); 

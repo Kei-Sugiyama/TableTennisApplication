@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="users")
+@Table(name="Users")
 public class LoginUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto_incrementを表す

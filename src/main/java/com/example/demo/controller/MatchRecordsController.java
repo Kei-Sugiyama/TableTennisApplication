@@ -20,8 +20,9 @@ public class MatchRecordsController {
 		return "records";
 	}
 	@GetMapping("/recordsProperty")
-	public String showRecordsProperty(@RequestParam Integer id, Model model) {
-		//model.addAttribute("matchesRecords",);//serviceに試合の詳細情報を取得させる
+	public String showRecordsProperty(@RequestParam String userId, Model model) {
+	
+		model.addAttribute("matchesRecordsProperties",matchRecordsService.findUserRecordsProperties(userId));//serviceに試合の詳細情報を取得させる
 		return "recordsProperty";
 	}
 	

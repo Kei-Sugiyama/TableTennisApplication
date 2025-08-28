@@ -22,4 +22,6 @@ public class Sets {
 	private Integer userScore;
 	@Column(name="rival_score")
 	private Integer rivalScore;
+	@Column
+	private String comment;
 }

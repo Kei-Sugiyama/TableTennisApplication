@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.RecordDTO;
+import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.dto.RecordScoresDTO;
+import com.example.demo.dto.RecordScoresPropertiesDTO;
 import com.example.demo.repository.MatchRecordsRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 	public List<RecordDTO> findUserRecords(String userId){
 	//ユーザーIDのすべての試合結果をRepositoryに検索させる
 		List <RecordDTO> list = matchRecordsRepository.findByUserId(userId);
+	
 		for(RecordDTO record:list) {
 			Integer matchId = record.getId();
 			//各セットのスコアを取得・登録
@@ -39,9 +42,29 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 		return list;
 	}
 	
-	/*@Transactional
-	public List<RecordDTO> findUserRecordsProperties(Integer id){
-		
-	}*/
+	@Transactional
+	public List<RecordPropertiesDTO> findUserRecordsProperties(String userId){
+		 List<RecordPropertiesDTO> list = matchRecordsRepository.findPropertiesByUserId(userId);
+		 
+		 //debug
+		 System.out.println("debug::::::::::" + list);
+		 for(RecordPropertiesDTO record:list) {
+				Integer matchId = record.getId();
+				//各セットのスコアを取得・登録
+				List<RecordScoresPropertiesDTO> scoresList = matchRecordsRepository.findPropertiesByMatchId(matchId);
+				record.setRecordScores(scoresList);
+				
+				//獲得セット数の計算・登録
+				for(RecordScoresPropertiesDTO scores:scoresList) {
+					if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
+						record.setUserSet(record.getUserSet() + 1);
+					}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
+						record.setRivalSet(record.getRivalSet() + 1);
+					}
+				}
+			
+			}
+		return list;
+	}
 
 }

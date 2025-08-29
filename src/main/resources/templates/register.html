@@ -13,14 +13,38 @@
 		  padding: 0;
 		  box-sizing: border-box;
 		}
-	header {margin:10px;}
+		header {
+				    margin-bottom: 30px;
+				    border-bottom: 2px solid #ddd;
+				    padding-bottom: 10px;
+				}
+			body {
+				    font-family: 'Roboto', sans-serif;
+				    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+				    color: #444; /* 読みやすい濃い色 */
+				    padding: 20px;
+				}
+			h1 {
+				    font-size: 28px;
+				    color: #444;
+			}
+
+			a {
+				    color: #007bff; /* 鮮やかなリンク色 */
+				    text-decoration: none; /* 下線を削除 */
+				    font-weight: 700;
+				}
+
+			a:hover {
+				    text-decoration: underline; /* ホバーで下線を表示 */
+				}
 	.form__input{margin:0px 0px 10px 0px;}
 	.form_error{color:red}
 	.form__action{margin:0px 0px 10px 0px;}
 </style>
 <body>
 	<header>
-		<h2>会員登録</h2>
+		<h1>会員登録</h1>
 	</header>
 	<main>
 		<form class="form" action="registerOk.html" th:action="@{/register}" method="post" th:object="${registerForm}">

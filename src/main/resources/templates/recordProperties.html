@@ -16,7 +16,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		    color: #444; /* 読みやすい濃い色 */
 		    padding: 20px;
 		}
-	h2 {
+	h1 {
 		    font-size: 28px;
 		    color: #444;
 	}
@@ -46,10 +46,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </head>
 <body>
 	<header>
-		<h2>Properties</h2>
-		<a href="records.html" th:href="@{/records(userId=${#authentication.principal.userId})}">一覧へ</a>
+		<h1>Properties</h1>
+		
 	</header>
 	<main>
+		<a href="records.html" th:href="@{/records(userId=${#authentication.principal.userId})}">一覧へ戻る</a>
 		<article class="article" th:object="${recordProperties}">
 			<h3>日付：<span th:text="*{date}">2025/8/25</span>　試合名：<span th:text="*{matchName}">厚木オープン1試合目</span></h3>
 			<table class="table" >

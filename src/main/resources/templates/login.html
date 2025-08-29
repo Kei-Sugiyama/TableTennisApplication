@@ -12,7 +12,31 @@
 	  padding: 0;
 	  box-sizing: border-box;
 	}
-	header {margin:10px;}
+	header {
+			    margin-bottom: 30px;
+			    border-bottom: 2px solid #ddd;
+			    padding-bottom: 10px;
+			}
+		body {
+			    font-family: 'Roboto', sans-serif;
+			    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+			    color: #444; /* 読みやすい濃い色 */
+			    padding: 20px;
+			}
+		h1{
+			    font-size: 28px;
+			    color: #444;
+		}
+
+		a {
+			    color: #007bff; /* 鮮やかなリンク色 */
+			    text-decoration: none; /* 下線を削除 */
+			    font-weight: 700;
+			}
+
+		a:hover {
+			    text-decoration: underline; /* ホバーで下線を表示 */
+			}
 	.error {color:red;}
 	.form{margin: 0px 0px 0px 5px;}
 	.form__input {margin:0px 0px 10px 0px;}
@@ -21,7 +45,7 @@
 </head>
 <body>
 	<header>
-		<h2>LOGIN</h2>
+		<h1>LOGIN</h1>
 	</header>
     <main>
 		<p th:if="${param.error!=null}" class="error">

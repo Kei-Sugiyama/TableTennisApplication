@@ -48,8 +48,7 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 		 //各セットのスコアを取得・登録
 		 List<RecordScoresPropertiesDTO> scoresList = matchRecordsRepository.findPropertiesByMatchId(matchId);
 		 recordProperties.setRecordScores(scoresList);
-		//debug
-		 System.out.println("debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+scoresList+"!!"+recordProperties);
+
 		 //獲得セット数の計算・登録
 		 for(RecordScoresPropertiesDTO scores:scoresList) {
 			if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {

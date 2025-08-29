@@ -30,15 +30,6 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			a:hover {
 				    text-decoration: underline; /* ホバーで下線を表示 */
 				}
-		.table__wideCell--set{width: 50px;
-							text-align: center;
-							font-size: 18px;
-							}
-		.table__wideCell--property{width: 60px;
-								text-align: center;
-								font-size: 18px;
-								}
-		table, th, td {border: 1px solid black;}
 </style>
 </head>
 <body>
@@ -49,12 +40,40 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<p>
 			<a href="records.html" th:href="@{/records(userId=${#authentication.principal.userId})}">一覧へ戻る</a>
 		</p>
-		<form action="registerRecordOk.html" th:action="@{/registerRecordOk}" method="post">
-			<label for="types">
-			<select id="types" name="types" >
-				<option></option>
-				<option></option>
+		<form class="form" action="registerRecordOk.html" th:action="@{/registerRecordOk}" th:object="${registerRecordForm}"
+				 method="post">
+			<label for="matchName">試合名：</label>
+				 <input type="text" th:field="*{matchName}">
+			<label for="types">種別：</label>
+			<select th:field="*{types}">
+				<option value="1" selected>シングルス</option>
+				<option value="2">ダブルス</option>
 			</select>
+			<label for="setsCount">セット数：</label>
+			<select th:field="*{setsCount}">
+				<option value="1">1セット</option>
+				<option value="2">3セット(2セット先取)</option>
+				<option value="3" selected>5セット(3セット先取)</option>
+				<option value="4">7セット(4セット先取)</option>
+			</select>
+			<table>
+			<tr>
+				<td>
+					<span th:text="${#authentication.principal.userName}"></span>
+					<input type="hidden" th:field="*{userId}" th:value="${#authentication.principal.userId}">
+				</td>
+				<td>
+					<label for="1set">1set：</label>
+					<input type="text" th:field="*{rivalName}">-<input type="text" th:field="*{rivalName}">
+				</td>
+				<td>
+					<label for="rivalName">対戦相手の名前：</label>
+					<input type="text" th:field="*{rivalName}">
+				</td>	
+			</tr>
+			</table>
+			<label for="comment">試合全体の所感</label>
+							<input type="text" th:field="*{comment}">
 		</form>
 	</main>		
 </body>

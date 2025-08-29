@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>RegisterRecords</title>
+<style>
+	header {
+				    margin-bottom: 30px;
+				    border-bottom: 2px solid #ddd;
+				    padding-bottom: 10px;
+				}
+			body {
+				    font-family: 'Roboto', sans-serif;
+				    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+				    color: #444; /* 読みやすい濃い色 */
+				    padding: 20px;
+				}
+			h1 {
+				    font-size: 28px;
+				    color: #444;
+			}
+
+			a {
+				    color: #007bff; /* 鮮やかなリンク色 */
+				    text-decoration: none; /* 下線を削除 */
+				    font-weight: 700;
+				}
+
+			a:hover {
+				    text-decoration: underline; /* ホバーで下線を表示 */
+				}
+		.table__wideCell--set{width: 50px;
+							text-align: center;
+							font-size: 18px;
+							}
+		.table__wideCell--property{width: 60px;
+								text-align: center;
+								font-size: 18px;
+								}
+		table, th, td {border: 1px solid black;}
+</style>
+</head>
+<body>
+	<header class="header">
+		<h1>RegisterRecords</h1>
+	</header>
+	<main>
+		<p>
+			<a href="records.html" th:href="@{/records(userId=${#authentication.principal.userId})}">一覧へ戻る</a>
+		</p>
+		<form action="registerRecordOk.html" th:action="@{/registerRecordOk}" method="post">
+			<label for="types">
+			<select id="types" name="types" >
+				<option></option>
+				<option></option>
+			</select>
+		</form>
+	</main>		
+</body>
+</html>

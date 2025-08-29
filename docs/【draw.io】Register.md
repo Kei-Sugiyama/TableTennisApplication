@@ -1,0 +1,1 @@
+![drawio](images/20250829_RegisterUser_KeiSugiyama.png)

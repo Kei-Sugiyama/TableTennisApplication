@@ -43,28 +43,23 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 	}
 	
 	@Transactional
-	public List<RecordPropertiesDTO> findUserRecordsProperties(String userId){
-		 List<RecordPropertiesDTO> list = matchRecordsRepository.findPropertiesByUserId(userId);
-		 
-		 //debug
-		 System.out.println("debug::::::::::" + list);
-		 for(RecordPropertiesDTO record:list) {
-				Integer matchId = record.getId();
-				//各セットのスコアを取得・登録
-				List<RecordScoresPropertiesDTO> scoresList = matchRecordsRepository.findPropertiesByMatchId(matchId);
-				record.setRecordScores(scoresList);
-				
-				//獲得セット数の計算・登録
-				for(RecordScoresPropertiesDTO scores:scoresList) {
-					if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
-						record.setUserSet(record.getUserSet() + 1);
-					}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
-						record.setRivalSet(record.getRivalSet() + 1);
-					}
+	public RecordPropertiesDTO findUserRecordProperties(Integer matchId){
+		 RecordPropertiesDTO recordProperties = matchRecordsRepository.findPropertiesBymatchId(matchId);
+		 //各セットのスコアを取得・登録
+		 List<RecordScoresPropertiesDTO> scoresList = matchRecordsRepository.findPropertiesByMatchId(matchId);
+		 recordProperties.setRecordScores(scoresList);
+		//debug
+		 System.out.println("debug!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+scoresList+"!!"+recordProperties);
+		 //獲得セット数の計算・登録
+		 for(RecordScoresPropertiesDTO scores:scoresList) {
+			if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
+					recordProperties.setUserSet(recordProperties.getUserSet() + 1);
+				}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
+					recordProperties.setRivalSet(recordProperties.getRivalSet() + 1);
 				}
-			
 			}
-		return list;
+			
+		return recordProperties;
 	}
 
 }

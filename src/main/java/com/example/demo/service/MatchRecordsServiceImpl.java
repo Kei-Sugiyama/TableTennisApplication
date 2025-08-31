@@ -9,6 +9,9 @@ import com.example.demo.dto.RecordDTO;
 import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.dto.RecordScoresDTO;
 import com.example.demo.dto.RecordScoresPropertiesDTO;
+import com.example.demo.form.RegisterRecord1stForm;
+import com.example.demo.form.RegisterRecord2ndForm;
+import com.example.demo.form.Set;
 import com.example.demo.repository.MatchRecordsRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -59,6 +62,18 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 			}
 			
 		return recordProperties;
+	}
+	public RegisterRecord2ndForm newRecord2ndForm(RegisterRecord1stForm registerRecord1stForm) {
+		Integer setsId = registerRecord1stForm.getSetsCount();
+		List <Set> sets = null; 
+		switch(setsId) {
+			//1セットマッチ,3セットマッチ,5セットマッチ,7セットマッチ
+			case 1 -> sets = List.of(new Set());
+			case 2 -> sets = List.of(new Set(),new Set(),new Set());
+			case 3 -> sets = List.of(new Set(),new Set(),new Set(),new Set(),new Set());
+			case 4 -> sets = List.of(new Set(),new Set(),new Set(),new Set(),new Set(),new Set(),new Set());
+		}
+		return new RegisterRecord2ndForm(sets) ;
 	}
 
 }

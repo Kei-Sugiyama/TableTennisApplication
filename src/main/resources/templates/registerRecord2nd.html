@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	header {
+				    margin-bottom: 30px;
+				    border-bottom: 2px solid #ddd;
+				    padding-bottom: 10px;
+				}
+			body {
+				    font-family: 'Roboto', sans-serif;
+				    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+				    color: #444; /* 読みやすい濃い色 */
+				    padding: 20px;
+				}
+			h1 {
+				    font-size: 28px;
+				    color: #444;
+			}
+
+			a {
+				    color: #007bff; /* 鮮やかなリンク色 */
+				    text-decoration: none; /* 下線を削除 */
+				    font-weight: 700;
+				}
+
+			a:hover {
+				    text-decoration: underline; /* ホバーで下線を表示 */
+				}
+			.form__controll{width :300px;
+							margin:0px 0px 15px 0px;}
+			.form__controll--comment{width: 400px;
+									height: 80px;}
+			table, th, td {border: 1px solid black;}
+			.table__widerCell{width: 150px;
+							text-align: center;
+							font-size: 18px;}
+			.table__widerCell--data{width: 150px;
+									text-align: center;
+									font-size: 20px;}			
+			
+			.table__widestCell{width: 280px;
+								text-align: center;
+								font-size: 18px;}
+			.table__widestCell--form{width:25px;
+									height:20px;}
+			.table__widestCell--text{display:inline-block;
+									width:200px;
+									text-align: center;}
+</style>
+</head>
+<body>
+	<header class="header">
+		<h1>RegisterRecords</h1>
+	</header>
+	<main>
+		<p>
+			<a href="registerRecord1st.html" th:href="@{/registerRecord1st}">戻る</a>
+		</p>
+		<p th:object="${session.registerRecord1stForm}">
+			日付：<span th:text="*{date}"></span><br>
+			試合名：<span th:text = "*{matchName}"></span><br>
+			種目：<span th:switch="*{types}">
+				<span th:case="1" >シングルス</span>	
+				<span th:case="2" >ダブルス</span>	
+			</span>
+		</p>
+		<form class="form" action="registerRecordOk.html" th:action="@{/registerRecordOk}" 
+			th:object="${registerRecord2ndForm}" method="post">
+			<table class="table">
+				<thead>
+					<tr>
+						<th class="table__widerCell">ユーザー名</th>
+						<th class="table__widestCell">スコア</th>
+						<th class="table__widerCell"><label for="rivalName">対戦相手</label></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="table__widerCell--data">
+							<span th:text="${#authentication.principal.username}">ユーザー名</span>
+							<input type="hidden" th:field="*{userId}" th:value="${#authentication.principal.userId}">
+						</td>
+						<td>
+							<span th:each="set, stat :*{sets}">
+								<input class="table__widestCell--form" 
+									type="text" th:field="*{sets[__${stat.index}__].myScore}">
+									<!--sets[0].myScoreからスタート。${}を__で囲むことで、先に読み込まれる-->
+									<!--リストへのバインディングはフィールド名[インデックス]番号.フィールド名となる-->
+								<span class="table__widestCell--text"th:text="|${stat.count}セット|">
+									1セット目のスコア
+								</span>
+								<input class="table__widestCell--form"
+									type="text" th:field="*{sets[__${stat.index}__].rivalScore}"><br>
+							</span>
+						</td>
+						<td class="table__widerCell--data">
+							<span th:text="${session.registerRecord1stForm.rivalName}"></span>
+						</td>	
+					</tr>
+				</tbody>
+			</table>
+				<div class="form__controll" th:each="set, stat :*{sets}">
+					<label for="comment" th:text="|${stat.count}セット目の所感：|">1セット目の所感：</label>
+					<input class="form__controll--comment" type="text" th:field="*{sets[__${stat.index}__].comment}">
+				</div>
+				<div class="form__controll">
+					<label for="comment">試合全体の所感：</label>
+					<input class="form__controll--comment" type="text" th:field="*{comment}">
+				</div>
+				<div class="form__action">	
+					<button type="submit">登録</button>
+				</div>
+		</form>
+	</main>
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -65,14 +66,17 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 	}
 	public RegisterRecord2ndForm newRecord2ndForm(RegisterRecord1stForm registerRecord1stForm) {
 		Integer setsId = registerRecord1stForm.getSetsCount();
-		List <Set> sets = null; 
+		int setMatch = 0; 
 		switch(setsId) {
-			//1セットマッチ,3セットマッチ,5セットマッチ,7セットマッチ
-			case 1 -> sets = List.of(new Set());
-			case 2 -> sets = List.of(new Set(),new Set(),new Set());
-			case 3 -> sets = List.of(new Set(),new Set(),new Set(),new Set(),new Set());
-			case 4 -> sets = List.of(new Set(),new Set(),new Set(),new Set(),new Set(),new Set(),new Set());
+			case 1 -> setMatch = 1;//1セットマッチ
+			case 2 -> setMatch = 3;//3セットマッチ
+			case 3 -> setMatch = 5;//5セットマッチ
+			case 4 -> setMatch = 7;//7セットマッチ
 		}
+		List <Set> sets = new ArrayList<>();
+		for(int i = 0; i < setMatch;i++) {
+			 sets.add(new Set());
+		}			
 		return new RegisterRecord2ndForm(sets) ;
 	}
 

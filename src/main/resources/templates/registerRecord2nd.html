@@ -3,7 +3,7 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>RegisterRecords</title>
 <style>
 	header {
 				    margin-bottom: 30px;
@@ -31,10 +31,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				    text-decoration: underline; /* ホバーで下線を表示 */
 				}
 			.form__controll{width :300px;
-							margin:0px 0px 15px 0px;}
-			.form__controll--comment{width: 400px;
-									height: 80px;}
-			table, th, td {border: 1px solid black;}
+							margin:0px 0px 20px 0px;}
+			.form__controll--comment{width: 500px;
+									height: 50px;}
+			.form__table, th, td {border: 1px solid black;}
+			.form__table{margin:0px 0px 20px 0px;}
 			.table__widerCell{width: 150px;
 							text-align: center;
 							font-size: 18px;}
@@ -45,11 +46,17 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.table__widestCell{width: 280px;
 								text-align: center;
 								font-size: 18px;}
-			.table__widestCell--form{width:25px;
-									height:20px;}
+			.table__widestCell--scores{display: inline-block;
+										width :280px;
+										height: 30px;
+										margin:0px 0px 5px 0px;
+										text-align: center;
+										border-bottom : 1px lightslategray solid ;}
+			.table__widestCell--form{width:30px;
+									height:18px;
+									}
 			.table__widestCell--text{display:inline-block;
-									width:200px;
-									text-align: center;}
+									width:190px;}
 </style>
 </head>
 <body>
@@ -61,7 +68,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<a href="registerRecord1st.html" th:href="@{/registerRecord1st}">戻る</a>
 		</p>
 		<p th:object="${session.registerRecord1stForm}">
-			日付：<span th:text="*{date}"></span><br>
+			日時：<span th:text="*{date}"></span><br>
 			試合名：<span th:text = "*{matchName}"></span><br>
 			種目：<span th:switch="*{types}">
 				<span th:case="1" >シングルス</span>	
@@ -70,7 +77,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		</p>
 		<form class="form" action="registerRecordOk.html" th:action="@{/registerRecordOk}" 
 			th:object="${registerRecord2ndForm}" method="post">
-			<table class="table">
+			<table class="form__table">
 				<thead>
 					<tr>
 						<th class="table__widerCell">ユーザー名</th>
@@ -85,12 +92,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							<input type="hidden" th:field="*{userId}" th:value="${#authentication.principal.userId}">
 						</td>
 						<td>
-							<span th:each="set, stat :*{sets}">
+							<span class="table__widestCell--scores" th:each="set, stat :*{sets}">
 								<input class="table__widestCell--form" 
 									type="text" th:field="*{sets[__${stat.index}__].myScore}">
 									<!--sets[0].myScoreからスタート。${}を__で囲むことで、先に読み込まれる-->
 									<!--リストへのバインディングはフィールド名[インデックス]番号.フィールド名となる-->
-								<span class="table__widestCell--text"th:text="|${stat.count}セット|">
+								<span class="table__widestCell--text" th:text="${stat.count}">
 									1セット目のスコア
 								</span>
 								<input class="table__widestCell--form"

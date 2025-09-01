@@ -49,7 +49,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<form class="form" action="registerRecord2nd.html" th:action="@{/registerRecord2nd}" th:object="${registerRecord1stForm}"
 				 method="post">
 			<div class="form__controll">
-				 <label class="form__controll--label" for="date">日付：</label>
+				 <label class="form__controll--label" for="date">日時：</label>
 				 <input type="date" th:field="*{date}">
 				 <p class="form__error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
 			</div>	
@@ -67,7 +67,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<p class="form__error" th:if="${#fields.hasErrors('types')}" th:errors="*{types}"></p>
 		    </div>
 			<div class="form__controll">
-				<label class="form__controll--label" for="setsCount">セット数：</label>
+				<label class="form__controll--label" for="setsCount">総セット数：</label>
 				<select th:field="*{setsCount}">
 					<option value="1">1セット</option>
 					<option value="2">3セット</option>

@@ -20,7 +20,7 @@ public class Matches {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto_incrementを表す
 	private Integer id;
-	@Column(nullable=false,name="type_id")
+	@Column(nullable=false,name="types_id")
 	private Integer typeId;
 	@Column(nullable=false,name="sets_count_id")
 	private Integer setsCountId;

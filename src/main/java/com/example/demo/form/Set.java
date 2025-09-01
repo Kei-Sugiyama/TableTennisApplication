@@ -19,7 +19,6 @@ public class Set {
 	@Max(value=40, message="40点以下で入力してください")
 	private Integer rivalScore;
 	
-	@NotNull
 	@Size(min=0, max=250, message="250字以下で入力してください")
 	private String comment;
 }

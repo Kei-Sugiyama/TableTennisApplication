@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +33,8 @@ public class RegisterRecord1stForm {
 	private Integer setsCount;
 	
 	@NotNull
-	@Size(min = 0, max = 30, message = "試合名は30文字以内で入力してください")
+	@Size(min = 0, max = 30, message = "対戦相手の名前は30文字以内で入力してください")
+	@Pattern(regexp="^\\S+$", message="対戦相手の名前を入力してください")
 	private String rivalName;
 	
 }

@@ -76,7 +76,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<td class="table__wideCell--set" th:text="${record.rivalSet}">0</td>					
 					<td th:text="${record.rivalName}">テス子</td>
 					<td class="table__wideCell--property">
-						<a href="recordProperties.html" th:href="@{/recordProperties(matchId=${record.id})}">詳細</a>
+						<a href="recordProperties.html" th:href="@{/recordsProperties(matchId=${record.id})}">詳細</a>
 					</td>
 				</tr>
 			</tbody>

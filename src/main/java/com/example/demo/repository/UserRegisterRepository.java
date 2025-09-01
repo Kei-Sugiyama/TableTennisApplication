@@ -2,9 +2,9 @@ package com.example.demo.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.entity.LoginUser;
+import com.example.demo.entity.Users;
 
-public interface UserRegisterRepository extends JpaRepository<LoginUser,Integer>{
-	public LoginUser findByUserId(String userId);
-	public LoginUser save(LoginUser loginUser);
+public interface UserRegisterRepository extends JpaRepository<Users,Integer>{
+	public Users findByUserId(String userId);
+	public Users save(Users loginUser);
 }

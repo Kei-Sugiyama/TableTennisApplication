@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.org.thymeleaf"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>試合結果詳細</title>
+<style>
+	header {
+		    margin-bottom: 30px;
+		    border-bottom: 2px solid #ddd;
+		    padding-bottom: 10px;
+		}
+	body {
+		    font-family: 'Roboto', sans-serif;
+		    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+		    color: #444; /* 読みやすい濃い色 */
+		    padding: 20px;
+		}
+	h1 {
+		    font-size: 28px;
+		    color: #444;
+	}
+
+	a {
+		    color: #007bff; /* 鮮やかなリンク色 */
+		    text-decoration: none; /* 下線を削除 */
+		    font-weight: 700;
+		}
+
+	a:hover {
+		    text-decoration: underline; /* ホバーで下線を表示 */
+		}
+		
+	.article{margin:0px 0px 20px 0px;
+			}
+	.table{margin:10px 0px 10px 0px;}
+	.table__wideCell--set{width: 50px;
+							text-align: center;
+							font-size: 18px;
+							}
+	.comment{margin:10px 0px 10px 0px ;}
+	table, th, td {border: 1px solid black;}
+	
+
+</style>
+</head>
+<body>
+	<header>
+		<h1>Properties</h1>
+		
+	</header>
+	<main>
+		<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
+		<article class="article" th:object="${recordProperties}">
+			<h3>日付：<span th:text="*{date}">2025/8/25</span>　試合名：<span th:text="*{matchName}">厚木オープン1試合目</span></h3>
+			<table class="table" >
+					<thead>
+						<tr>
+							<th>ユーザー名</th>
+							<th colspan="3">試合結果</th>
+							<th>対戦相手</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td th:text="*{userName}">テス男</td>
+							<td class="table__wideCell--set" th:text="*{userSet}">3</td>
+							<td class="table__wideCell--set">
+								<span th:each="scores : *{recordScores}">
+									[[${scores.userScore}]]-[[${scores.rivalScore}]]
+								</span>
+								<br>
+							</td>
+							<td class="table__wideCell--set" th:text="*{rivalSet}">0</td>					
+							<td th:text="*{rivalName}">テス子</td>
+						</tr>
+					</tbody>
+			</table>
+			<div class="comment"><strong>試合所感：</strong><br>
+				<span th:text="*{comment}"></span>
+			</div>
+			<div class="comment" th:each="setComment ,status : *{recordScores}">
+				<strong>第<span th:text="${status.count}"></span>セットメモ：</strong><br>
+				<span th:text="${setComment.comment}"></span>
+			</div>
+		</article>	
+	</main>
+</body>
+</html>

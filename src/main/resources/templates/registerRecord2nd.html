@@ -46,7 +46,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.table__widestCell{width: 280px;
 								text-align: center;
 								font-size: 18px;}
-			.table__widestCell--scores{display: inline-block;
+			.table__widestCell--scores{
 										width :280px;
 										height: 30px;
 										margin:0px 0px 5px 0px;
@@ -57,6 +57,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									}
 			.table__widestCell--text{display:inline-block;
 									width:190px;}
+			.table__widestCell--errors{color: red;}
 </style>
 </head>
 <body>
@@ -75,7 +76,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<span th:case="2" >ダブルス</span>	
 			</span>
 		</p>
-		<form class="form" action="registerRecordOk.html" th:action="@{/registerRecordOk}" 
+		<form class="form" action="registerRecordOk.html" th:action="@{/registerRecordOut}" 
 			th:object="${registerRecord2ndForm}" method="post">
 			<table class="form__table">
 				<thead>
@@ -89,10 +90,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<tr>
 						<td class="table__widerCell--data">
 							<span th:text="${#authentication.principal.username}">ユーザー名</span>
-							<input type="hidden" th:field="*{userId}" th:value="${#authentication.principal.userId}">
 						</td>
 						<td>
-							<span class="table__widestCell--scores" th:each="set, stat :*{sets}">
+							<div class="table__widestCell--scores" th:each="set, stat :*{sets}">
 								<input class="table__widestCell--form" 
 									type="text" th:field="*{sets[__${stat.index}__].myScore}">
 									<!--sets[0].myScoreからスタート。${}を__で囲むことで、先に読み込まれる-->
@@ -101,8 +101,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									1セット目のスコア
 								</span>
 								<input class="table__widestCell--form"
-									type="text" th:field="*{sets[__${stat.index}__].rivalScore}"><br>
-							</span>
+									type="text" th:field="*{sets[__${stat.index}__].rivalScore}">
+							</div>
 						</td>
 						<td class="table__widerCell--data">
 							<span th:text="${session.registerRecord1stForm.rivalName}"></span>
@@ -110,13 +110,24 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					</tr>
 				</tbody>
 			</table>
-				<div class="form__controll" th:each="set, stat :*{sets}">
-					<label for="comment" th:text="|${stat.count}セット目の所感：|">1セット目の所感：</label>
-					<input class="form__controll--comment" type="text" th:field="*{sets[__${stat.index}__].comment}">
-				</div>
+					<div class="table__widestCell--errors" th:each="set, stat :*{sets}">
+						<span th:if="${#fields.hasErrors('*{sets[__${stat.index}__].myScore}')}">							
+							<span th:text="|${stat.count}セット目：|"></span>
+							<span th:errors="*{sets[__${stat.index}__].myScore}">myScoreのエラー内容</span>
+						</span>
+						<span th:if="${#fields.hasErrors('*{sets[__${stat.index}__].rivalScore}')}"
+								th:errors="*{sets[__${stat.index}__].rivalScore}">rivalScoreのエラー内容</span>
+				    </div>
 				<div class="form__controll">
 					<label for="comment">試合全体の所感：</label>
 					<input class="form__controll--comment" type="text" th:field="*{comment}">
+					<p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></p>
+				</div>
+				<div class="form__controll" th:each="set, stat :*{sets}">
+					<label for="comment" th:text="|${stat.count}セット目の所感：|">セット目の所感：</label>
+					<input class="form__controll--comment" type="text" th:field="*{sets[__${stat.index}__].comment}">
+					<p th:if="${#fields.hasErrors('*{sets[__${stat.index}__].comment}')}" 
+						th:errors="*{sets[__${stat.index}__].comment}"></p>
 				</div>
 				<div class="form__action">	
 					<button type="submit">登録</button>

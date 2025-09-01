@@ -6,12 +6,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.example.demo.entity.LoginUser;
+import com.example.demo.entity.Users;
 
 public class LoginUserDetails implements UserDetails {
-	private final LoginUser loginUser;
+	private final Users loginUser;
 	
-	public LoginUserDetails(LoginUser loginUser) {
+	public LoginUserDetails(Users loginUser) {
 		this.loginUser = loginUser;
 	}
 	public Collection<? extends GrantedAuthority> getAuthorities(){
@@ -20,7 +20,7 @@ public class LoginUserDetails implements UserDetails {
 	}
 	 @Override 
 	 public String getPassword() { 
-	     return loginUser.getPassword(); 
+	     return loginUser.getHashPassword(); 
 	 }
 	 
 	 public String getUserId() { 

@@ -4,7 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.demo.entity.LoginUser;
+import com.example.demo.entity.Users;
 import com.example.demo.form.RegisterForm;
 import com.example.demo.repository.UserRegisterRepository;
 
@@ -19,13 +19,13 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 	@Override
 	@Transactional
 	public String registerUser(RegisterForm form) {
-		LoginUser result = userRegisterRepository.findByUserId(form.getUserId());
+		Users result = userRegisterRepository.findByUserId(form.getUserId());
 		
 		if(result==null) {
-			LoginUser loginUser = new LoginUser();
+			Users loginUser = new Users();
 			loginUser.setUserId(form.getUserId());
 			loginUser.setUserName(form.getUserName());
-			loginUser.setPassword(passwordEncoder.encode(form.getPassword()));
+			loginUser.setHashPassword(passwordEncoder.encode(form.getPassword()));
 			loginUser.setRole(form.getRole());
 			userRegisterRepository.save(loginUser);
 			return null;

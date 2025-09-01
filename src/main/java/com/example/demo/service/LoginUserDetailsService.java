@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.details.LoginUserDetails;
-import com.example.demo.entity.LoginUser;
+import com.example.demo.entity.Users;
 import com.example.demo.repository.LoginUserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class LoginUserDetailsService implements UserDetailsService {
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userId) {
-		LoginUser loginUser = loginUserRepository.findByUserId(userId);
+		Users loginUser = loginUserRepository.findByUserId(userId);
 		if(loginUser == null) {
 			throw new UsernameNotFoundException("Not found user"); 
 		}

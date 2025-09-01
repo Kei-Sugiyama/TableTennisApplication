@@ -18,6 +18,8 @@ public class Sets {
 	private Integer id;
 	@Column(name="matches_id")
 	private Integer matchesId;
+	@Column(name="set_num")
+	private Integer setNum;
 	@Column(name="user_score")
 	private Integer userScore;
 	@Column(name="rival_score")

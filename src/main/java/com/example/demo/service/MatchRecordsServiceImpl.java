@@ -87,6 +87,7 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 		}			
 		return new RegisterRecord2ndForm(sets) ;
 	}
+	@Transactional
 	public Integer registerRecord(String userId,
 			RegisterRecord1stForm registerRecord1stForm,RegisterRecord2ndForm registerRecord2ndForm) {
 		

@@ -60,6 +60,7 @@ public class MatchRecordsController {
 		if(bindingResult.hasErrors()) {
 			return "registerRecord2nd";
 		}
+		//登録とmatchId取得
 		Integer matchId = matchRecordsService.registerRecord(userDetails.getUserId(),
 				(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
 		model.addAttribute("recordProperties",matchRecordsService.findUserRecordProperties(matchId));

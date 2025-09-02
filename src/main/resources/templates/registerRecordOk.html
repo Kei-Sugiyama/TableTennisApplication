@@ -50,7 +50,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		
 	</header>
 	<main>
-		<a href="records.html" th:href="@{/records(userId=${#authentication.principal.userId})}">一覧へ戻る</a>
+		<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 		<article class="article" th:object="${recordProperties}">
 			<h3>日付：<span th:text="*{date}">2025/8/25</span>　試合名：<span th:text="*{matchName}">厚木オープン1試合目</span></h3>
 			<table class="table" >

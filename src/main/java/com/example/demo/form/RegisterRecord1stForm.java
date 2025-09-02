@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 public class RegisterRecord1stForm {
-	@NotNull
+	@NotNull(message = "日付を入力してください")
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate date;
 	

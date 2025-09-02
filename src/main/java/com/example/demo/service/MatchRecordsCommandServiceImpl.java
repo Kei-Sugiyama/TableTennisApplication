@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.entity.Matches;
 import com.example.demo.entity.Sets;
 import com.example.demo.entity.Users;
@@ -75,6 +76,17 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		}
 		setsList.forEach(setsEntity -> setsRepository.save(setsEntity));
 		return matchId;
+	}
+	
+	public RecordPropertiesDTO bindResultToForm(RecordPropertiesDTO dto,RegisterRecord1stForm registerRecord1stForm) {
+		registerRecord1stForm.setDate(dto.getDate());
+		registerRecord1stForm.setMatchName(dto.getMatchName());
+		// typesをdtoで引っ張ってくる必要あり　registerRecord1stForm.setTypes(dto.get());
+		// セット数をdtoで引っ張ってくる必要あり　registerRecord1stForm.(dto.getDate());
+		registerRecord1stForm.setRivalName(dto.getRivalName());
+		
+		return registerRecord1stForm;
+		
 	}
 
 }

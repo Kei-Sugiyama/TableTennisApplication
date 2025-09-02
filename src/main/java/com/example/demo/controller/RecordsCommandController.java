@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.details.LoginUserDetails;
+import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.form.RegisterRecord1stForm;
 import com.example.demo.form.RegisterRecord2ndForm;
 import com.example.demo.service.MatchRecordsCommandService;
@@ -57,9 +58,11 @@ public class RecordsCommandController {
 		return "registerRecordOk";
 	}
 	@GetMapping("/editRecord1st")
-	public String showEdit(@RequestParam Integer matchId,Model model,HttpSession session) {
-		matchRecordsQueryService.findUserRecordProperties(matchId);
+	public String showEdit(@RequestParam Integer matchId,Model model,RegisterRecord1stForm registerRecord1stForm) {
+		//findUserPropertiesでsetも種別も拾ってくる
+		RecordPropertiesDTO dto =  matchRecordsQueryService.findUserRecordProperties(matchId);
 		//検索結果をformクラスに紐づけてth:valueを利用する
+		matchRecordsCommandService.bindResultToForm(dto,registerRecord1stForm);
 		return "editRecord1st";
 	}
 }

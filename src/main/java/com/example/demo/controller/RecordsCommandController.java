@@ -9,31 +9,20 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.details.LoginUserDetails;
 import com.example.demo.form.RegisterRecord1stForm;
 import com.example.demo.form.RegisterRecord2ndForm;
-import com.example.demo.service.MatchRecordsService;
+import com.example.demo.service.MatchRecordsCommandService;
+import com.example.demo.service.MatchRecordsQueryService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-public class MatchRecordsController {
-	private final MatchRecordsService matchRecordsService;
-	
-	@GetMapping("/records")
-	public String showRecords(Model model,@AuthenticationPrincipal LoginUserDetails userDetails) {
-		model.addAttribute("matchesRecords", matchRecordsService.findUserRecords(userDetails.getUserId()));		
-		return "records";
-	}
-	@GetMapping("/recordsProperties")
-	public String showRecordProperties(@RequestParam Integer matchId, Model model) {
-	
-		model.addAttribute("recordProperties",matchRecordsService.findUserRecordProperties(matchId));//serviceに試合の詳細情報を取得させる
-		return "recordsProperties";
-	}
+public class RecordsCommandController {
+	private final MatchRecordsCommandService matchRecordsCommandService;
+	private final MatchRecordsQueryService matchRecordsQueryService;
 	
 	@GetMapping("/registerRecord1st")
 	public String showRegisterRecord(RegisterRecord1stForm registerRecord1stForm,Model model,HttpSession session) {
@@ -50,7 +39,7 @@ public class MatchRecordsController {
 			return "registerRecord1st";
 		}
 		session.setAttribute("registerRecord1stForm", registerRecord1stForm);
-		model.addAttribute("registerRecord2ndForm",matchRecordsService.newRecord2ndForm(registerRecord1stForm));
+		model.addAttribute("registerRecord2ndForm",matchRecordsCommandService.newRecord2ndForm(registerRecord1stForm));
 		return "registerRecord2nd";
 	}
 	
@@ -61,9 +50,9 @@ public class MatchRecordsController {
 			return "registerRecord2nd";
 		}
 		//登録とmatchId取得
-		Integer matchId = matchRecordsService.registerRecord(userDetails.getUserId(),
+		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getUserId(),
 				(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
-		model.addAttribute("recordProperties",matchRecordsService.findUserRecordProperties(matchId));
+		model.addAttribute("recordProperties",matchRecordsQueryService.findUserRecordProperties(matchId));
 		return "registerRecordOk";
 	}
 }

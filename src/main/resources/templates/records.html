@@ -38,6 +38,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							text-align: center;
 							font-size: 18px;
 							}
+	.table__wideCell--edit{width: 60px;
+							text-align: center;
+							font-size: 18px;
+							}						
 	table, th, td {border: 1px solid black;}
 </style>
 </head>
@@ -82,7 +86,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						<a href="recordProperties.html" th:href="@{/recordsProperties(matchId=${record.id})}">詳細</a>
 					</td>
 					<td class="table__wideCell--edit">
-						<a href="edit.html" th:href="@{/edit}">編集</a>
+						<a href="editRecord1st.html" th:href="@{/editRecord1st(matchId=${record.id})}">編集</a>
 					</td>
 				</tr>
 			</tbody>

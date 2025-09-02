@@ -62,7 +62,7 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		
 		//SetsEntityの生成・DB登録
 		List<Sets> setsList = new ArrayList<>();
-		int setNum = 1;
+		int setNum = 1;//1セット目から逐次入力
 		for(Set set : registerRecord2ndForm.getSets()) {
 			Sets setsEntity = new Sets();
 			setsEntity.setMatchesId(matchId);

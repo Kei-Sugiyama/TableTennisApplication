@@ -32,6 +32,7 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 	@Transactional
 	public List<RecordDTO> findUserRecords(String userId){
 		//ユーザーIDのすべての試合結果を取得
+		//SpringDataJPAは、メソッドの戻り値がListなら、nullを返さないため、nullチェックは不要
 		List <RecordDTO> list = matchRecordsRepository.findByUserId(userId);
 		
 		//スコアと獲得セット数をlistに登録
@@ -43,10 +44,12 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 			
 			//獲得セット数の計算・登録
 			for(RecordScoresDTO scores:scoresList) {
-				if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
-					record.setUserSet(record.getUserSet() + 1);
-				}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
-					record.setRivalSet(record.getRivalSet() + 1);
+				if(scores.getUserScore()!=null&&scores.getRivalScore()!=null) {
+					if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
+						record.setUserSet(record.getUserSet() + 1);
+					}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
+						record.setRivalSet(record.getRivalSet() + 1);
+					}
 				}
 			}
 		
@@ -63,11 +66,13 @@ public class MatchRecordsServiceImpl implements MatchRecordsService{
 
 		 //獲得セット数の計算・登録
 		 for(RecordScoresPropertiesDTO scores:scoresList) {
-			if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
+			if(scores.getUserScore()!=null&&scores.getRivalScore()!=null) {
+				if((scores.getUserScore()-scores.getRivalScore()>=2)&&(scores.getUserScore()>=11)) {
 					recordProperties.setUserSet(recordProperties.getUserSet() + 1);
 				}else if((scores.getRivalScore()-scores.getUserScore()>=2)&&(scores.getRivalScore()>=11)){
 					recordProperties.setRivalSet(recordProperties.getRivalSet() + 1);
 				}
+			  }
 			}
 			
 		return recordProperties;

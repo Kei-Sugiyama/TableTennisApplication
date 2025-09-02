@@ -69,7 +69,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<td class="table__wideCell--set" th:text="${record.userSet}">3</td>
 					<td class="table__wideCell--set">
 						<span th:each="scores : ${record.recordScores}">
-							[[${scores.userScore}]]-[[${scores.rivalScore}]]
+							<span th:if="${scores.userScore!=null && scores.rivalScore!=null}">
+								[[${scores.userScore}]]-[[${scores.rivalScore}]]
+							</span>
 						</span>
 						<br>
 					</td>

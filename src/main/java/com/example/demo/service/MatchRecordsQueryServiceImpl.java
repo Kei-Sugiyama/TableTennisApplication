@@ -63,7 +63,7 @@ public class MatchRecordsQueryServiceImpl implements MatchRecordsQueryService{
 				}
 			  }
 			}
-			
+
 		return recordProperties;
 	}
 }

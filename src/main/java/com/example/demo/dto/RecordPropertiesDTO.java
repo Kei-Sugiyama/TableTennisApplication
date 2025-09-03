@@ -8,6 +8,8 @@ import lombok.Data;
 @Data
 public class RecordPropertiesDTO {
 	private  Integer id;
+	private Integer typeId;
+	private Integer setsCountId;
 	private  LocalDate date;
 	private  String matchName;
 	private  String userName;
@@ -18,9 +20,11 @@ public class RecordPropertiesDTO {
 	private  List<RecordScoresPropertiesDTO> recordScores;
 	
 	//JPQL用コンストラクタ
-	public RecordPropertiesDTO(Integer id, LocalDate date,String matchName,String userName,String rivalName,
-			String comment) {
+	public RecordPropertiesDTO(Integer id,Integer typeId,Integer setsCountId,LocalDate date,String matchName,
+			String userName,String rivalName,String comment) {
 		this.id = id;
+		this.typeId = typeId;
+		this.setsCountId = setsCountId;
 		this.date = date;
 		this.matchName = matchName;
 		this.userName = userName;

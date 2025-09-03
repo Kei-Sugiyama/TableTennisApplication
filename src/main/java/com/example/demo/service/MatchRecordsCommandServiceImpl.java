@@ -78,15 +78,29 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		return matchId;
 	}
 	
-	public RecordPropertiesDTO bindResultToForm(RecordPropertiesDTO dto,RegisterRecord1stForm registerRecord1stForm) {
+	public RegisterRecord1stForm bindResultTo1stForm(RecordPropertiesDTO dto,RegisterRecord1stForm registerRecord1stForm) {
 		registerRecord1stForm.setDate(dto.getDate());
 		registerRecord1stForm.setMatchName(dto.getMatchName());
-		// typesをdtoで引っ張ってくる必要あり　registerRecord1stForm.setTypes(dto.get());
-		// セット数をdtoで引っ張ってくる必要あり　registerRecord1stForm.(dto.getDate());
+		registerRecord1stForm.setTypes(dto.getTypeId());
+		registerRecord1stForm.setSetsCount(dto.getSetsCountId());
 		registerRecord1stForm.setRivalName(dto.getRivalName());
 		
 		return registerRecord1stForm;
 		
+	}
+	
+	public RegisterRecord2ndForm bindResultTo2ndForm(RecordPropertiesDTO dto,RegisterRecord2ndForm registerRecord2ndForm) {
+		
+		//2ndFormの各セットにDTOの各セットのスコア・コメントを紐づけ
+		int count = 0;
+			for(Set set :registerRecord2ndForm.getSets()) {
+			set.setMyScore(dto.getRecordScores().get(count).getUserScore());
+			set.setRivalScore(dto.getRecordScores().get(count).getRivalScore());
+			set.setComment(dto.getRecordScores().get(count).getComment());
+			count++;
+		}
+		registerRecord2ndForm.setComment(dto.getComment());
+		return registerRecord2ndForm;
 	}
 
 }

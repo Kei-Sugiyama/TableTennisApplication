@@ -21,8 +21,8 @@ public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
 			+"FROM Sets s where s.matchesId = :matchId")
 	public List<RecordScoresDTO> findByMatchId(@Param("matchId")Integer matchId);
 	
-	@Query("SELECT new com.example.demo.dto.RecordPropertiesDTO(m.id, m.date, m.name, u.userName,"
-			+ " m.rivalName, m.comment) FROM Matches m JOIN m.users u WHERE m.id = :matchId")
+	@Query("SELECT new com.example.demo.dto.RecordPropertiesDTO(m.id,m.typeId,m.setsCountId, m.date,"
+			+ "m.name, u.userName,m.rivalName, m.comment) FROM Matches m JOIN m.users u WHERE m.id = :matchId")
 	public RecordPropertiesDTO findPropertiesByMatchId(@Param("matchId")Integer matchId);
 	
 	@Query("SELECT new com.example.demo.dto.RecordScoresPropertiesDTO(s.userScore,s.rivalScore,s.comment)"

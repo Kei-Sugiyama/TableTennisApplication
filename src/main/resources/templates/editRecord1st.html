@@ -4,16 +4,49 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
 <title>Edit</title>
+<style>
+	header {
+					    margin-bottom: 30px;
+					    border-bottom: 2px solid #ddd;
+					    padding-bottom: 10px;
+					}
+				body {
+					    font-family: 'Roboto', sans-serif;
+					    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+					    color: #444; /* 読みやすい濃い色 */
+					    padding: 20px;
+					}
+				h1 {
+					    font-size: 28px;
+					    color: #444;
+				}
+
+				a {
+					    color: #007bff; /* 鮮やかなリンク色 */
+					    text-decoration: none; /* 下線を削除 */
+					    font-weight: 700;
+					}
+
+				a:hover {
+					    text-decoration: underline; /* ホバーで下線を表示 */
+					}
+				.form__controll{
+								width :300px;
+								margin:0px 0px 15px 0px;}
+				.form__controll--label{display:inline-block;
+										width:100px;}
+				.form__error{ color: red;}
+	</style>
 </head>
 <body>
 	<header class="header">
-			<h1>RegisterRecords</h1>
+			<h1>EditRecords</h1>
 		</header>
 		<main>
 			<p>
 				<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 			</p>
-			<form class="form" action="editRecord2nd.html" th:action="@{/editRecord2nd}" th:object="${registerRecord1stForm}"
+			<form class="form" action="editRecord2nd.html" th:action="@{/editRecord2nd(matchId=${matchId})}" th:object="${registerRecord1stForm}"
 					 method="post">
 				<div class="form__controll">
 					 <label class="form__controll--label" for="date">日時：</label>
@@ -38,7 +71,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<select th:field="*{setsCount}">
 						<option value="1">1セット</option>
 						<option value="2">3セット</option>
-						<option value="3" selected>5セット</option>
+						<option value="3">5セット</option>
 						<option value="4">7セット</option>
 					</select>
 					<p class="form__error" th:if="${#fields.hasErrors('setsCount')}" th:errors="*{setsCount}"></p>

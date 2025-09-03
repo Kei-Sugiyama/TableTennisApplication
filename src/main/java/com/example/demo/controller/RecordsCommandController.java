@@ -28,7 +28,7 @@ public class RecordsCommandController {
 	
 	@GetMapping("/registerRecord1st")
 	public String showRegisterRecord(RegisterRecord1stForm registerRecord1stForm,Model model,HttpSession session) {
-		//record2ndから戻ってきた場合に、modelにformオブジェクトを再格納
+		//record2ndから戻ってきた場合に、modelに1stformオブジェクトを再格納
 		if(session.getAttribute("registerRecord1stForm")!=null) {
 			model.addAttribute("registerRecord1stForm",session.getAttribute("registerRecord1stForm"));
 		}
@@ -41,6 +41,7 @@ public class RecordsCommandController {
 			return "registerRecord1st";
 		}
 		session.setAttribute("registerRecord1stForm", registerRecord1stForm);
+		//1stFormで選択したセット数に合わせ、2ndFormを生成する
 		model.addAttribute("registerRecord2ndForm",matchRecordsCommandService.newRecord2ndForm(registerRecord1stForm));
 		return "registerRecord2nd";
 	}
@@ -58,11 +59,44 @@ public class RecordsCommandController {
 		return "registerRecordOk";
 	}
 	@GetMapping("/editRecord1st")
-	public String showEdit(@RequestParam Integer matchId,Model model,RegisterRecord1stForm registerRecord1stForm) {
-		//findUserPropertiesでsetも種別も拾ってくる
-		RecordPropertiesDTO dto =  matchRecordsQueryService.findUserRecordProperties(matchId);
+	public String showEditRecord1st(@RequestParam Integer matchId,Model model,RegisterRecord1stForm registerRecord1stForm) {
+		RecordPropertiesDTO dto = matchRecordsQueryService.findUserRecordProperties(matchId);
 		//検索結果をformクラスに紐づけてth:valueを利用する
-		matchRecordsCommandService.bindResultToForm(dto,registerRecord1stForm);
+		RegisterRecord1stForm form = matchRecordsCommandService.bindResultTo1stForm(dto,registerRecord1stForm);
+		model.addAttribute("registerRecord1stform", form);
+		model.addAttribute("matchId",matchId);
 		return "editRecord1st";
 	}
+	@PostMapping("/editRecord2nd")
+	public String showEditRecord2nd (@RequestParam Integer matchId,@Validated RegisterRecord1stForm registerRecord1stForm, 
+				BindingResult bindingResult,HttpSession session,Model model) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("matchId",matchId);
+			return "editRecord1st";
+		}
+		session.setAttribute("registerRecord1stForm", registerRecord1stForm);
+		
+		//1stFormで選択したセット数に合わせ、2ndFormを生成する
+		RegisterRecord2ndForm registerRecord2ndform = matchRecordsCommandService.newRecord2ndForm(registerRecord1stForm);
+		
+		RecordPropertiesDTO dto =  matchRecordsQueryService.findUserRecordProperties(matchId);
+		registerRecord2ndform = matchRecordsCommandService.bindResultTo2ndForm(dto,registerRecord2ndform);
+		
+		model.addAttribute("matchId",matchId);
+		model.addAttribute("registerRecord2ndForm", registerRecord2ndform);
+		return "editRecord2nd";
+	}
+	@PostMapping("/editRecordOut")
+	public String editRecordOk(@Validated RegisterRecord2ndForm registerRecord2ndForm,BindingResult bindingResult
+			,HttpSession session,Model model,@AuthenticationPrincipal LoginUserDetails userDetails) {
+		if(bindingResult.hasErrors()) {
+			return "registerRecord2nd";
+		}
+		//登録とmatchId取得  新規でなくupdateに修正！！！！！！！！！！！！
+		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getUserId(),
+			(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
+		
+		model.addAttribute("recordProperties",matchRecordsQueryService.findUserRecordProperties(matchId));
+	return "registerRecordOk";
+}
 }

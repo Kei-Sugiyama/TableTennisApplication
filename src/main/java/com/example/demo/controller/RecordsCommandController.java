@@ -88,13 +88,13 @@ public class RecordsCommandController {
 	}
 	@PostMapping("/editRecordOut")
 	public String editRecordOk(@Validated RegisterRecord2ndForm registerRecord2ndForm,BindingResult bindingResult
-			,HttpSession session,Model model,@AuthenticationPrincipal LoginUserDetails userDetails) {
+			,HttpSession session,Model model,@RequestParam Integer matchId) {
 		if(bindingResult.hasErrors()) {
 			return "registerRecord2nd";
 		}
 		//登録とmatchId取得  新規でなくupdateに修正！！！！！！！！！！！！
-		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getUserId(),
-			(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
+		matchRecordsCommandService.updateRecord(matchId,(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm")
+				,registerRecord2ndForm);
 		
 		model.addAttribute("recordProperties",matchRecordsQueryService.findUserRecordProperties(matchId));
 	return "registerRecordOk";

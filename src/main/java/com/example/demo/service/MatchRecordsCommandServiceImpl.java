@@ -78,6 +78,45 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		return matchId;
 	}
 	
+	@Transactional
+	public Integer updateRecord(Integer matchId,
+			RegisterRecord1stForm registerRecord1stForm,RegisterRecord2ndForm registerRecord2ndForm) {
+		
+		//matchIdで検索
+		Matches match = matchRecordsRepository.findByMatchId(matchId);
+		
+		//MatchesEntityの修正
+		match.setDate(registerRecord1stForm.getDate());
+		match.setTypeId(registerRecord1stForm.getTypes());
+		match.setSetsCountId(registerRecord1stForm.getSetsCount());
+		match.setName(registerRecord1stForm.getMatchName());
+		match.setRivalName(registerRecord1stForm.getRivalName());
+		match.setComment(registerRecord2ndForm.getComment());
+		
+		//DB更新（matchIdがあるため、updateになる）
+		matchRecordsRepository.save(match);
+
+		
+		//更新前のsetsを削除
+		setsRepository.deleteByMatchesId(matchId);
+		
+		//SetsEntityの生成・DB登録
+		List<Sets> setsEntityList = new ArrayList<>();
+		int setNum = 1;//1セット目から逐次入力
+		for(Set set : registerRecord2ndForm.getSets()) {
+			Sets setsEntity = new Sets();
+			setsEntity.setMatchesId(matchId);
+			setsEntity.setSetNum(setNum);
+			setsEntity.setUserScore(set.getMyScore());
+			setsEntity.setRivalScore(set.getRivalScore());
+			setsEntity.setComment(set.getComment());
+			setsEntityList.add(setsEntity);
+			setNum++;
+		}
+		setsEntityList.forEach(setsEntity -> setsRepository.save(setsEntity));
+		return matchId;
+	}
+	
 	public RegisterRecord1stForm bindResultTo1stForm(RecordPropertiesDTO dto,RegisterRecord1stForm registerRecord1stForm) {
 		registerRecord1stForm.setDate(dto.getDate());
 		registerRecord1stForm.setMatchName(dto.getMatchName());

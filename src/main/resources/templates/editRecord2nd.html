@@ -76,7 +76,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<span th:case="2" >ダブルス</span>	
 			</span>
 		</p>
-		<form class="form" action="editRecordOk.html" th:action="@{/editRecordOut}" 
+		<form class="form" action="editRecordOk.html" th:action="@{/editRecordOut(matchId=${matchId})}" 
 			th:object="${registerRecord2ndForm}" method="post">
 			<table class="form__table">
 				<thead>

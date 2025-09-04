@@ -10,6 +10,7 @@ import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.dto.RecordScoresDTO;
 import com.example.demo.dto.RecordScoresPropertiesDTO;
 import com.example.demo.repository.MatchRecordsRepository;
+import com.example.demo.repository.SetsRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,18 +18,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MatchRecordsQueryServiceImpl implements MatchRecordsQueryService{
 	private final MatchRecordsRepository matchRecordsRepository;
+	private final SetsRepository setsRepository;
 	
 	@Transactional
 	public List<RecordDTO> findUserRecords(String userId){
 		//ユーザーIDのすべての試合結果を取得
 		//SpringDataJPAは、メソッドの戻り値がListなら、nullを返さないため、nullチェックは不要
-		List <RecordDTO> list = matchRecordsRepository.findByUserId(userId);
+		List <RecordDTO> list = matchRecordsRepository.findRecordDtoByUserId(userId);
 		
 		//スコアと獲得セット数をlistに登録
 		for(RecordDTO record:list) {
 			Integer matchId = record.getId();
 			//各セットのスコアを取得・登録
-			List<RecordScoresDTO> scoresList = matchRecordsRepository.findByMatchId(matchId);
+			List<RecordScoresDTO> scoresList = setsRepository.findRecordScoresDtoByMatchId(matchId);
 			record.setRecordScores(scoresList);
 			
 			//獲得セット数の計算・登録
@@ -50,7 +52,7 @@ public class MatchRecordsQueryServiceImpl implements MatchRecordsQueryService{
 	public RecordPropertiesDTO findUserRecordProperties(Integer matchId){
 		 RecordPropertiesDTO recordProperties = matchRecordsRepository.findPropertiesByMatchId(matchId);
 		 //各セットのスコアを取得・登録
-		 List<RecordScoresPropertiesDTO> scoresList = matchRecordsRepository.findScoresPropertiesByMatchId(matchId);
+		 List<RecordScoresPropertiesDTO> scoresList = setsRepository.findScoresPropertiesByMatchId(matchId);
 		 recordProperties.setRecordScores(scoresList);
 
 		 //獲得セット数の計算・登録

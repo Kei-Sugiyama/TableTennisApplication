@@ -52,12 +52,18 @@ public class RecordsCommandController {
 		if(bindingResult.hasErrors()) {
 			return "registerRecord2nd";
 		}
-		//登録とmatchId取得
+		//試合結果登録とmatchId取得
 		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getUserId(),
 				(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
+		return "redirect:/registerRecordOk?matchId=" + matchId;
+		
+	}
+	@GetMapping("/registerRecordOk")
+	public  String showRegisterRecordOk(@RequestParam Integer matchId,Model model) {
 		model.addAttribute("recordProperties",matchRecordsQueryService.findUserRecordProperties(matchId));
 		return "registerRecordOk";
 	}
+	
 	@GetMapping("/editRecord1st")
 	public String showEditRecord1st(@RequestParam Integer matchId,Model model,RegisterRecord1stForm registerRecord1stForm) {
 		RecordPropertiesDTO dto = matchRecordsQueryService.findUserRecordProperties(matchId);
@@ -92,11 +98,25 @@ public class RecordsCommandController {
 		if(bindingResult.hasErrors()) {
 			return "registerRecord2nd";
 		}
-		//登録とmatchId取得  新規でなくupdateに修正！！！！！！！！！！！！
 		matchRecordsCommandService.updateRecord(matchId,(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm")
 				,registerRecord2ndForm);
 		
+	return "redirect:/editRecordOk?matchId=" + matchId;
+	}
+	@GetMapping("/editRecordOk")
+	public String editRecordOk(@RequestParam Integer matchId, Model model) {
 		model.addAttribute("recordProperties",matchRecordsQueryService.findUserRecordProperties(matchId));
-	return "registerRecordOk";
-}
+		return "editRecordOk";
+	}
+	
+	@GetMapping("/deleteRecord")
+	public String showDeleteRecord (@RequestParam Integer matchId,Model model) {
+		model.addAttribute("recordProperties", matchRecordsQueryService.findUserRecordProperties(matchId));
+		return "deleteRecord";
+	}
+	@GetMapping("/deleteRecordOk")
+	public String deleteRecord(@RequestParam Integer matchId) {
+		matchRecordsCommandService.deleteRecord(matchId);
+		return "deleteRecordOk";
+	}
 }

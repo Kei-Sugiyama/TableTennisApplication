@@ -141,5 +141,10 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		registerRecord2ndForm.setComment(dto.getComment());
 		return registerRecord2ndForm;
 	}
+	@Transactional
+	public void deleteRecord(Integer matchId) {
+		setsRepository.deleteByMatchesId(matchId);
+		matchRecordsRepository.deleteById(matchId);
+	}
 
 }

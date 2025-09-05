@@ -34,14 +34,18 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						text-align: center;
 						font-size: 18px;
 						}
-	.table__wideCell--property{width: 60px;
+	.table__wideCell--property{width: 80px;
 							text-align: center;
 							font-size: 18px;
 							}
-	.table__wideCell--edit{width: 60px;
+	.table__wideCell--edit{width: 80px;
 							text-align: center;
 							font-size: 18px;
-							}						
+							}	
+	.table__wideCell--delete{width: 40px;
+							text-align: center;
+							font-size: 18px;	
+	                        }				
 	table, th, td {border: 1px solid black;}
 </style>
 </head>
@@ -64,6 +68,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<th>対戦相手</th>
 					<th>詳細</th>
 					<th>編集</th>
+					<th>削除</th>
 				</tr>
 			</thead>
 			<tbody th:each="record : ${matchesRecords}">
@@ -87,6 +92,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					</td>
 					<td class="table__wideCell--edit">
 						<a href="editRecord1st.html" th:href="@{/editRecord1st(matchId=${record.id})}">編集</a>
+					</td>
+					<td class="table__wideCell--delete">
+						<a href="deleteRecord.html" th:href="@{/deleteRecord(matchId=${record.id})}">削除</a>
 					</td>
 				</tr>
 			</tbody>

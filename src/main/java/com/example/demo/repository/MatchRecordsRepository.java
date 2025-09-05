@@ -22,5 +22,6 @@ public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
 			+ "m.name, u.userName,m.rivalName, m.comment) FROM Matches m JOIN m.users u WHERE m.id = :matchId")
 	public RecordPropertiesDTO findPropertiesByMatchId(@Param("matchId")Integer matchId);
 	
+	public void deleteById(Integer id);
 
 }

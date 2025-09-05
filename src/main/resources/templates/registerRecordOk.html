@@ -3,7 +3,7 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>試合結果詳細</title>
+<title>RegisterRecords</title>
 <style>
 	header {
 		    margin-bottom: 30px;
@@ -20,7 +20,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		    font-size: 28px;
 		    color: #444;
 	}
-
+	.p__message{font-size: 28px;}
+	
 	a {
 		    color: #007bff; /* 鮮やかなリンク色 */
 		    text-decoration: none; /* 下線を削除 */
@@ -46,10 +47,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </head>
 <body>
 	<header>
-		<h1>Properties</h1>
+		<h1>RegisterRecords</h1>
 		
 	</header>
 	<main>
+		<p class="p__message">
+			<strong>以下の試合結果を登録しました。</strong>
+		</p>
 		<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 		<article class="article" th:object="${recordProperties}">
 			<h3>日付：<span th:text="*{date}">2025/8/25</span>　試合名：<span th:text="*{matchName}">厚木オープン1試合目</span></h3>

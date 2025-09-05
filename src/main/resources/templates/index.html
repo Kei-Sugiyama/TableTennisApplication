@@ -48,7 +48,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<li class="ul__li" sec:authorize="authenticated">
 				<a href="records.html" th:href="@{/records}">Match Records</a>
 			</li>
-			<li sec:authorize="authenticated"><a href="login.html" th:href="@{/login}">EXIT</a></li>
+			<li class="ul__li" sec:authorize="authenticated">
+				<a href="userInformation.html" th:href="@{/userInformation}">User Information</a>
+			</li>
+			<li sec:authorize="authenticated"><a href="login.html" th:href="@{/login}">EXIT</a>
+			</li>
 		</ul>
 		
 	</main>

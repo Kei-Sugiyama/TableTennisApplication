@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.org.thymeleaf"
+<html xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>試合結果詳細</title>
+<title>EditRecord</title>
 <style>
 	header {
 		    margin-bottom: 30px;
@@ -17,14 +17,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		    padding: 20px;
 		}
 	h1 {
-		    font-size: 30px;
+		    font-size: 28px;
 		    color: #444;
 	}
-	h3{ 
-			font-size: 22px;
-			
-	}
-
+	.p__message{font-size: 28px;}
+	
 	a {
 		    color: #007bff; /* 鮮やかなリンク色 */
 		    text-decoration: none; /* 下線を削除 */
@@ -44,34 +41,21 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							}
 	.comment{margin:10px 0px 10px 0px ;}
 	table, th, td {border: 1px solid black;}
-	
 
 </style>
 </head>
 <body>
 	<header>
-		<h1>Properties</h1>
+		<h1>RegisterRecords</h1>
 		
 	</header>
 	<main>
+		<p class="p__message">
+			<strong>試合結果を登録しました。</strong>
+		</p>
 		<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 		<article class="article" th:object="${recordProperties}">
-			<h3>
-				日付：<span th:text="*{date}">2025/8/25</span>　
-				試合名：<span th:text="*{matchName}">厚木オープン1試合目</span>　
-			</h3>
-			<p>
-				種別：<span th:switch="*{typeId}">
-						<span th:case="1">シングルス</span>
-						<span th:case="2">ダブルス</span>
-					  </span>　
-				総セット数：<span th:switch="*{setsCountId}">
-					<span th:case="1">1セットマッチ</span>
-	  			    <span th:case="2">3セットマッチ</span>
-					<span th:case="3">5セットマッチ</span>
-					<span th:case="4">7セットマッチ</span>
-				   </span>
-			</p>
+			<h3>日付：<span th:text="*{date}">2025/8/25</span>　試合名：<span th:text="*{matchName}">厚木オープン1試合目</span></h3>
 			<table class="table" >
 					<thead>
 						<tr>
@@ -85,10 +69,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							<td th:text="*{userName}">テス男</td>
 							<td class="table__wideCell--set" th:text="*{userSet}">3</td>
 							<td class="table__wideCell--set">
-								<span th:each="scores : *{recordScores}">								
+								<span th:each="scores : *{recordScores}">
 									<span th:if="${scores.userScore!=null && scores.rivalScore!=null}">
-										[[${scores.userScore}]]-[[${scores.rivalScore}]]
-									</span>					
+									[[${scores.userScore}]]-[[${scores.rivalScore}]]
+									</span>
 								</span>
 								<br>
 							</td>

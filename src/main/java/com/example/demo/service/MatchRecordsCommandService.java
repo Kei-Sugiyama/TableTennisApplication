@@ -11,4 +11,5 @@ public interface MatchRecordsCommandService {
 	public RegisterRecord2ndForm bindResultTo2ndForm(RecordPropertiesDTO dto,RegisterRecord2ndForm registerRecord2ndForm);
 	public Integer updateRecord(Integer matchId,
 			RegisterRecord1stForm registerRecord1stForm,RegisterRecord2ndForm registerRecord2ndForm) ;
+	public void deleteRecord(Integer matchId);
 }	

@@ -3,27 +3,28 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>試合結果詳細</title>
+<title>DeleteRecord</title>
 <style>
+	body {
+			  font-family: 'Roboto', sans-serif;
+			    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+			    color: #444; /* 読みやすい濃い色 */
+			    padding: 20px;
+			}
 	header {
 		    margin-bottom: 30px;
 		    border-bottom: 2px solid #ddd;
 		    padding-bottom: 10px;
 		}
-	body {
-		    font-family: 'Roboto', sans-serif;
-		    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
-		    color: #444; /* 読みやすい濃い色 */
-		    padding: 20px;
-		}
-	h1 {
-		    font-size: 30px;
+	
+	header h1 {
+		    font-size: 28px;
 		    color: #444;
 	}
-	h3{ 
-			font-size: 22px;
-			
-	}
+	.chooseDelete{margin:0px 0px 30px 0px;}
+	.chooseDelete__message{font-size: 30px;
+							margin: 0px;}
+	.chooseDelete__select{font-size: 20px;}
 
 	a {
 		    color: #007bff; /* 鮮やかなリンク色 */
@@ -50,28 +51,34 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 </head>
 <body>
 	<header>
-		<h1>Properties</h1>
-		
+		<h1>Delete Record</h1>
 	</header>
 	<main>
-		<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
+		<div class="chooseDelete">
+			<p class="chooseDelete__message">
+				<strong>以下の試合記録を削除します。</strong>
+			</p>
+				<a class="chooseDelete__select" href="deleteRecordOut.html" 
+					th:href="@{/deleteRecordOut(matchId=${recordProperties.id})}">はい</a>/
+				<a class="chooseDelete__select" href="records.html" th:href="@{/records}">いいえ</a>
+		</div>
 		<article class="article" th:object="${recordProperties}">
 			<h3>
 				日付：<span th:text="*{date}">2025/8/25</span>　
 				試合名：<span th:text="*{matchName}">厚木オープン1試合目</span>　
 			</h3>
 			<p>
-				種別：<span th:switch="*{typeId}">
-						<span th:case="1">シングルス</span>
-						<span th:case="2">ダブルス</span>
-					  </span>　
-				総セット数：<span th:switch="*{setsCountId}">
-					<span th:case="1">1セットマッチ</span>
-	  			    <span th:case="2">3セットマッチ</span>
-					<span th:case="3">5セットマッチ</span>
-					<span th:case="4">7セットマッチ</span>
-				   </span>
-			</p>
+						種別：<span th:switch="*{typeId}">
+								<span th:case="1">シングルス</span>
+								<span th:case="2">ダブルス</span>
+							  </span>　
+						総セット数：<span th:switch="*{setsCountId}">
+							<span th:case="1">1セットマッチ</span>
+			  			    <span th:case="2">3セットマッチ</span>
+							<span th:case="3">5セットマッチ</span>
+							<span th:case="4">7セットマッチ</span>
+						   </span>
+					</p>
 			<table class="table" >
 					<thead>
 						<tr>

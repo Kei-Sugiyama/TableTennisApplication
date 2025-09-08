@@ -16,8 +16,8 @@ public class Users {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) //auto_incrementを表す
 	private Integer id;
-	@Column(nullable=false,unique=true, name="user_id")
-	private String userId;
+	@Column(nullable=false,unique=true, name="login_id")
+	private String loginId;
 	@Column(nullable=false, name="user_name")
 	private String userName;
 	@Column(nullable = false ,name="hash_password")

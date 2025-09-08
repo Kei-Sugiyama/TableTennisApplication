@@ -51,14 +51,14 @@
 		<p th:if="${param.error!=null}" class="error">
 			ユーザー名またはパスワードが違います。	
 		</p>	
-		<form class="form" action="index.html" th:action="@{/login}" method="post">
+		<form class="form" action="index.html" th:action="@{/login}" method="post" th:object="${registerForm}">
 			<div class="form__input">
-				<label for="userId">ユーザーID：</label>
-				<input type="text" id="userId" name="userId">
+				<label for="loginId">ログインID：</label>
+				<input type="text" th:field="*{loginId}">
 			</div>
 			<div class="form__input">
 				<label for="password">パスワード：</label>
-				<input type="password" id="pass" name="password">
+				<input type="password" th:field="*{password}">
 			</div>
 			<div class="form__action">
 				 <button type="submit">ログイン</button>

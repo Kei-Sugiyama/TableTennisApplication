@@ -53,7 +53,7 @@ public class RecordsCommandController {
 			return "registerRecord2nd";
 		}
 		//試合結果登録とmatchId取得
-		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getUserId(),
+		Integer matchId = matchRecordsCommandService.registerRecord(userDetails.getId(),
 				(RegisterRecord1stForm)session.getAttribute("registerRecord1stForm"),registerRecord2ndForm);
 		return "redirect:/registerRecordOk?matchId=" + matchId;
 		
@@ -114,7 +114,7 @@ public class RecordsCommandController {
 		model.addAttribute("recordProperties", matchRecordsQueryService.findUserRecordProperties(matchId));
 		return "deleteRecord";
 	}
-	@GetMapping("/deleteRecordOk")
+	@GetMapping("/deleteRecordOut")
 	public String deleteRecord(@RequestParam Integer matchId) {
 		matchRecordsCommandService.deleteRecord(matchId);
 		return "deleteRecordOk";

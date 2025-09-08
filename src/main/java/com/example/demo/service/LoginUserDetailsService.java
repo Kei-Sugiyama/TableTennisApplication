@@ -19,8 +19,8 @@ public class LoginUserDetailsService implements UserDetailsService {
 	
 	@Override
 	@Transactional
-	public UserDetails loadUserByUsername(String userId) {
-		Users loginUser = usersRepository.findByUserId(userId);
+	public UserDetails loadUserByUsername(String loginId) {//ユーザー名＝loginId
+		Users loginUser = usersRepository.findByLoginId(loginId);
 		if(loginUser == null) {
 			throw new UsernameNotFoundException("Not found user"); 
 		}

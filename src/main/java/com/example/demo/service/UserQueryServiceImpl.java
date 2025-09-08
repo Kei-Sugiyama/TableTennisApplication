@@ -12,8 +12,8 @@ import lombok.RequiredArgsConstructor;
 public class UserQueryServiceImpl implements UserQueryService{
 	private final UsersRepository usersRepository;
 	
-	public Users findUser(String userId) {
-		Users user = usersRepository.findByUserId(userId);
+	public Users findUser(String loginId) {
+		Users user = usersRepository.findByLoginId(loginId);
 		return user;
 	}
 }

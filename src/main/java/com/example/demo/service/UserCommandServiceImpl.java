@@ -19,11 +19,11 @@ public class UserCommandServiceImpl implements UserCommandService {
 	@Override
 	@Transactional
 	public String registerUser(RegisterForm form) {
-		Users result = usersRepository.findByUserId(form.getUserId());
+		Users result = usersRepository.findByLoginId(form.getLoginId());
 		
 		if(result==null) {
 			Users user = new Users();
-			user.setUserId(form.getUserId());
+			user.setLoginId(form.getLoginId());
 			user.setUserName(form.getUserName());
 			user.setHashPassword(passwordEncoder.encode(form.getPassword()));
 			user.setRole("GENERAL");
@@ -38,20 +38,20 @@ public class UserCommandServiceImpl implements UserCommandService {
 	@Transactional
 	public RegisterForm bindToRegisterForm(Users user) {
 		RegisterForm registerForm = new RegisterForm();
-		registerForm.setUserId(user.getUserId());
+		registerForm.setLoginId(user.getLoginId());
 		registerForm.setUserName(user.getUserName());
 		return registerForm;
 	}
 	
 	@Override
 	@Transactional
-	public String editUser(RegisterForm form,String userId) {
+	public String editUser(RegisterForm form,String loginId) {
 		//userIdに変更があり、かつ、他のユーザーと重複していたらエラー
-		if(!(form.getUserId().equals(userId)) && usersRepository.findByUserId(form.getUserId())!=null) {
+		if(!(form.getLoginId().equals(loginId)) && usersRepository.findByLoginId(form.getLoginId())!=null) {
 			return "このユーザーIDは使用済みです。";
 		}else{
-			Users user = usersRepository.findByUserId(userId);
-			user.setUserId(form.getUserId());
+			Users user = usersRepository.findByLoginId(loginId);
+			user.setLoginId(form.getLoginId());
 			user.setUserName(form.getUserName());
 			user.setHashPassword(passwordEncoder.encode(form.getPassword()));
 			user.setRole("GENERAL");

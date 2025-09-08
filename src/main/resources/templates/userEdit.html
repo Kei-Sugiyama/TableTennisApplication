@@ -55,9 +55,9 @@
 		<form class="form" 
 			action="userEditOut.html" th:action="@{/userEditOut}" method="post" th:object="${registerForm}">
 			<div class="form__input">
-				<label for="userId">ユーザーID：</label>
-				<input type="text" th:field="*{userId}">
-				<p class="form__error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></p>
+				<label for="userId">ログインID：</label>
+				<input type="text" th:field="*{loginId}">
+				<p class="form__error" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></p>
 				<p class="form__error" th:if="${error!=null}" th:text="${error}"></p>
 			</div>
 			<div class="form__input">

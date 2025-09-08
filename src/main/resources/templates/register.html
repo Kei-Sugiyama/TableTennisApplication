@@ -51,9 +51,9 @@
 	<main>
 		<form class="form" action="registerOk.html" th:action="@{/register}" method="post" th:object="${registerForm}">
 			<div class="form__input">
-				<label for="userId">ユーザーID：</label>
-				<input type="text" id="userId" name="userId">
-				<p class="form__error" th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></p>
+				<label for="loginId">ログインID：</label>
+				<input type="text" th:field="*{loginId}">
+				<p class="form__error" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></p>
 				<p class="form__error" th:if="${message!=null}" th:text="${message}"></p>
 			</div>
 			<div class="form__input">

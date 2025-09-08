@@ -13,9 +13,9 @@ import com.example.demo.entity.Users;
 import com.example.demo.form.RegisterRecord1stForm;
 import com.example.demo.form.RegisterRecord2ndForm;
 import com.example.demo.form.Set;
-import com.example.demo.repository.UsersRepository;
 import com.example.demo.repository.MatchRecordsRepository;
 import com.example.demo.repository.SetsRepository;
+import com.example.demo.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandService{
 	private final MatchRecordsRepository matchRecordsRepository;
-	private final UsersRepository loginUserRepository;
+	private final UsersRepository usersRepository;
 	private final SetsRepository setsRepository;
 
 	public RegisterRecord2ndForm newRecord2ndForm(RegisterRecord1stForm registerRecord1stForm) {
@@ -42,10 +42,10 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		return new RegisterRecord2ndForm(sets) ;
 	}
 	@Transactional
-	public Integer registerRecord(String userId,
+	public Integer registerRecord(Integer userId,
 			RegisterRecord1stForm registerRecord1stForm,RegisterRecord2ndForm registerRecord2ndForm) {
 		
-		Users user = loginUserRepository.findByUserId(userId);
+		Users user = usersRepository.findByUserId(userId);
 		
 		//MatchesEntityの生成・DB登録
 		Matches match = new Matches();

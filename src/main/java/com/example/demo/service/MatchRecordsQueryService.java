@@ -6,7 +6,7 @@ import com.example.demo.dto.RecordDTO;
 import com.example.demo.dto.RecordPropertiesDTO;
 
 public interface MatchRecordsQueryService {
-	public List <RecordDTO> findUserRecords(String userId);
+	public List <RecordDTO> findUserRecords(Integer usersId);
 	public RecordPropertiesDTO findUserRecordProperties(Integer matchId);
 	
 }

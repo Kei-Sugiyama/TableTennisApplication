@@ -18,7 +18,7 @@ public class RecordsQueryController {
 	
 	@GetMapping("/records")
 	public String showRecords(Model model,@AuthenticationPrincipal LoginUserDetails userDetails) {
-		model.addAttribute("matchesRecords", matchRecordsQueryService.findUserRecords(userDetails.getUserId()));		
+		model.addAttribute("matchesRecords", matchRecordsQueryService.findUserRecords(userDetails.getId()));		
 		return "records";
 	}
 	@GetMapping("/recordsProperties")

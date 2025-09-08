@@ -57,7 +57,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<p class="top"><strong>登録内容</strong></p>
 		<div class="userInformation" th:object="${user}">
 			<div class="userInformation__item">
-				<span>ユーザーID：</span><span th:text="*{userId}"></span>
+				<span>ユーザーID：</span><span th:text="*{loginId}"></span>
 			</div>
 			<div class="userInformation__item">
 				<span>ユーザー名：</span><span th:text="*{userName}"></span>

@@ -21,10 +21,10 @@ public class MatchRecordsQueryServiceImpl implements MatchRecordsQueryService{
 	private final SetsRepository setsRepository;
 	
 	@Transactional
-	public List<RecordDTO> findUserRecords(String userId){
+	public List<RecordDTO> findUserRecords(Integer usersId){
 		//ユーザーIDのすべての試合結果を取得
 		//SpringDataJPAは、メソッドの戻り値がListなら、nullを返さないため、nullチェックは不要
-		List <RecordDTO> list = matchRecordsRepository.findRecordDtoByUserId(userId);
+		List <RecordDTO> list = matchRecordsRepository.findRecordDByUserId(usersId);
 		
 		//スコアと獲得セット数をlistに登録
 		for(RecordDTO record:list) {

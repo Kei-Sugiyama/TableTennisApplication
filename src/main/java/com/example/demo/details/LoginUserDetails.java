@@ -23,8 +23,8 @@ public class LoginUserDetails implements UserDetails {
 	     return loginUser.getHashPassword(); 
 	 }
 	 
-	 public String getUserId() { 
-		  return loginUser.getUserId(); 
+	 public String getLoginId() { 
+		  return loginUser.getLoginId(); 
 	 }
 	 
 	 public Integer getId() {

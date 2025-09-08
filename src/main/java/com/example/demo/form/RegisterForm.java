@@ -10,7 +10,7 @@ public class RegisterForm {
 
 	@NotNull
 	@Pattern(regexp="^\\S{4,20}$" ,message="ユーザーIDを入力してください(4～20字)")
-	private String userId;
+	private String loginId;
 	@NotNull
 	@Pattern(regexp="^\\S{1,20}$",message="ユーザー名を入力してください(1～20字)")
 	private String userName;

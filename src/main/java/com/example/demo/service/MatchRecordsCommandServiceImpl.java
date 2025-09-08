@@ -13,7 +13,7 @@ import com.example.demo.entity.Users;
 import com.example.demo.form.RegisterRecord1stForm;
 import com.example.demo.form.RegisterRecord2ndForm;
 import com.example.demo.form.Set;
-import com.example.demo.repository.LoginUserRepository;
+import com.example.demo.repository.UsersRepository;
 import com.example.demo.repository.MatchRecordsRepository;
 import com.example.demo.repository.SetsRepository;
 
@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandService{
 	private final MatchRecordsRepository matchRecordsRepository;
-	private final LoginUserRepository loginUserRepository;
+	private final UsersRepository loginUserRepository;
 	private final SetsRepository setsRepository;
 
 	public RegisterRecord2ndForm newRecord2ndForm(RegisterRecord1stForm registerRecord1stForm) {

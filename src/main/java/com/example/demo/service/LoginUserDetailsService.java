@@ -8,19 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.details.LoginUserDetails;
 import com.example.demo.entity.Users;
-import com.example.demo.repository.LoginUserRepository;
+import com.example.demo.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class LoginUserDetailsService implements UserDetailsService {
-	private final LoginUserRepository loginUserRepository;
+	private final UsersRepository usersRepository;
 	
 	@Override
 	@Transactional
 	public UserDetails loadUserByUsername(String userId) {
-		Users loginUser = loginUserRepository.findByUserId(userId);
+		Users loginUser = usersRepository.findByUserId(userId);
 		if(loginUser == null) {
 			throw new UsernameNotFoundException("Not found user"); 
 		}

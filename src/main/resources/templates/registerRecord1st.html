@@ -33,8 +33,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.form__controll{
 							width :300px;
 							margin:0px 0px 15px 0px;}
+			.form__controll--rival1{width :300px;
+									margin:0px 0px 15px 0px;}
+			.form__controll--rival2{width :300px;
+									margin:0px 0px 15px 0px;}
 			.form__controll--label{display:inline-block;
-									width:100px;}
+									width:115px;}
 			.form__error{ color: red;}
 </style>
 </head>
@@ -60,9 +64,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			</div>
 			<div class="form__controll">
   			    <label class="form__controll--label" for="types">種別：</label>
-				<select th:field="*{types}">
-				<option value="1" selected>シングルス</option>
-				<option value="2">ダブルス</option>
+				<select id="form__controll--typesSelect" th:field="*{types}">
+				    <option value="1">シングルス</option>
+				    <option value="2">ダブルス</option>
 				</select>
 				<p class="form__error" th:if="${#fields.hasErrors('types')}" th:errors="*{types}"></p>
 		    </div>
@@ -76,13 +80,40 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</select>
 				<p class="form__error" th:if="${#fields.hasErrors('setsCount')}" th:errors="*{setsCount}"></p>
 			</div>
-			<div class="form__controll">
+			<div class="form__controll--rival1">
 				 <label class="form__controll--label" for="rivalName">対戦相手名：</label>
-				 <input type="text" th:field="*{rivalName}">
+				 <input id = "form__controll--rival1Input" type="text" th:field="*{rivalName}" placeholder="">
 				 <p class="form__error" th:if="${#fields.hasErrors('rivalName')}" th:errors="*{rivalName}"></p>
+			</div>
+            <div class="form__controll--rival2" style="display: none">
+				 <label class="form__controll--label" for="rivalName2">対戦相手名：</label>
+				 <input type="text" th:field="*{rivalName2}" placeholder="選手２">
+				 <p class="form__error" th:if="${#fields.hasErrors('rivalName2')}" th:errors="*{rivalName2}"></p>
 			</div>
 			<button type="submit">次へ</button>
 		</form>
+        <script>
+	          const types = document.getElementById("form__controll--typesSelect");
+	         const rival1Input = document.getElementById("form__controll--rival1Input");
+	         const rival2Div = document.querySelector('div[class="form__controll--rival2"]');
+	            types.addEventListener("change",(event) => {
+	            // コールバック関数の引数にevent情報を渡す。event.Targetはイベント発火したHTML要素。
+	            if (event.target.value === '2') {
+	                // ダブルスなら表示
+	                rival2Div.style.display = 'block';
+	                rival1Input.placeholder = "選手１";
+	            } else {
+	                // シングルスなら非表示
+	                rival2Div.style.display = 'none';
+	               rival1Input.placeholder = "";
+	                }
+	            });
+	            // ページ読み込み時の初期状態もチェック
+	            if (types.value === '2') {
+	                rival2Div.style.display = 'block';
+	               rival1Input.placeholder = "選手１";
+	            }
+        </script>
 	</main>		
 </body>
 </html>

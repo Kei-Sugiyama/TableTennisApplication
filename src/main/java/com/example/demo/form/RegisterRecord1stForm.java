@@ -37,4 +37,7 @@ public class RegisterRecord1stForm {
 	@Pattern(regexp="^\\S+$", message="対戦相手の名前を入力してください")
 	private String rivalName;
 	
+	@Size(min = 0, max = 30, message = "対戦相手の名前は30文字以内で入力してください")
+	@Pattern(regexp="^\\S*$", message="対戦相手の名前を入力してください")
+	private String rivalName2;
 }

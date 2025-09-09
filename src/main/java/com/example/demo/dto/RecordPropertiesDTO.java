@@ -14,6 +14,7 @@ public class RecordPropertiesDTO {
 	private  String matchName;
 	private  String userName;
 	private  String rivalName;
+	private  String rivalName2;
 	private Integer userSet =0;
 	private Integer rivalSet = 0;
 	private String comment;
@@ -21,7 +22,7 @@ public class RecordPropertiesDTO {
 	
 	//JPQL用コンストラクタ
 	public RecordPropertiesDTO(Integer id,Integer typeId,Integer setsCountId,LocalDate date,String matchName,
-			String userName,String rivalName,String comment) {
+			String userName,String rivalName,String rivalName2,String comment) {
 		this.id = id;
 		this.typeId = typeId;
 		this.setsCountId = setsCountId;
@@ -29,6 +30,7 @@ public class RecordPropertiesDTO {
 		this.matchName = matchName;
 		this.userName = userName;
 		this.rivalName = rivalName;
+		this.rivalName2 = rivalName2;		
 		this.comment = comment;
 	}
 }

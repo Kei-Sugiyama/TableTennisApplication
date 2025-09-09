@@ -67,7 +67,7 @@
 			</div>
 			<div class="form__input">
 				<label for="password">パスワード：</label>
-				<input type="text" th:field="*{password}">
+				<input type="password" th:field="*{password}">
 				<p class="form__error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
 			</div>
 			<div class="form__action">

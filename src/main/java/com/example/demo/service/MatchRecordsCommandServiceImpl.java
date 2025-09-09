@@ -54,6 +54,13 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		match.setSetsCountId(registerRecord1stForm.getSetsCount());
 		match.setName(registerRecord1stForm.getMatchName());
 		match.setRivalName(registerRecord1stForm.getRivalName());
+		//ダブルスなら氏名登録、シングルスならnullとする。
+		if(registerRecord1stForm.getTypes()==2) {
+			match.setRivalName2(registerRecord1stForm.getRivalName2());
+		}else {
+			match.setRivalName2(null);
+		}
+		
 		match.setUsers(user);
 		match.setComment(registerRecord2ndForm.getComment());
 		
@@ -91,6 +98,12 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		match.setSetsCountId(registerRecord1stForm.getSetsCount());
 		match.setName(registerRecord1stForm.getMatchName());
 		match.setRivalName(registerRecord1stForm.getRivalName());
+		//ダブルスなら氏名登録、シングルスならnullとする。
+		if(registerRecord1stForm.getTypes()==2) {
+			match.setRivalName2(registerRecord1stForm.getRivalName2());
+		}else {
+			match.setRivalName2(null);
+			}
 		match.setComment(registerRecord2ndForm.getComment());
 		
 		//DB更新（matchIdがあるため、updateになる）
@@ -123,6 +136,7 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		registerRecord1stForm.setTypes(dto.getTypeId());
 		registerRecord1stForm.setSetsCount(dto.getSetsCountId());
 		registerRecord1stForm.setRivalName(dto.getRivalName());
+		registerRecord1stForm.setRivalName2(dto.getRivalName2());
 		
 		return registerRecord1stForm;
 		

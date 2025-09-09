@@ -55,6 +55,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.table__widestCell--form{width:30px;
 									height:18px;
 									}
+			.table__widerCell--rivalName{display:inline-block;
+										margin: 0px 0px 15px 0px;
+												}
+			
 			.table__widestCell--text{display:inline-block;
 									width:190px;}
 			.table__widestCell--errors{color: red;}
@@ -105,7 +109,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							</div>
 						</td>
 						<td class="table__widerCell--data">
-							<span th:text="${session.registerRecord1stForm.rivalName}"></span>
+							<span th:if="${session.registerRecord1stForm.rivalName2==null}">
+								[[${session.registerRecord1stForm.rivalName}]]
+							</span>
+							<span th:if="${session.registerRecord1stForm.rivalName2!=null}">
+								<span class="table__widerCell--rivalName">
+									[[${session.registerRecord1stForm.rivalName}]]</span>
+								<span  class="table__widerCell--rivalName">
+									[[${session.registerRecord1stForm.rivalName2}]]</span>
+							</span>
 						</td>	
 					</tr>
 				</tbody>

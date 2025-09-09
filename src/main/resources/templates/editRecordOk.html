@@ -77,7 +77,12 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								<br>
 							</td>
 							<td class="table__wideCell--set" th:text="*{rivalSet}">0</td>					
-							<td th:text="*{rivalName}">テス子</td>
+							<td >
+								<span th:if="*{rivalName2==null}">[[*{rivalName}]]</span>
+								<span th:if="*{rivalName2!=null}">
+									[[*{rivalName}]]<br>[[*{{rivalName2}}]]
+								</span>
+							</td>
 						</tr>
 					</tbody>
 			</table>

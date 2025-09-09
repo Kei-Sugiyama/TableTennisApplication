@@ -32,6 +32,10 @@ public class RegisterRecord1stForm {
 	@Max(value=4, message = "正しい値を入力してください")
 	private Integer setsCount;
 	
+	@Size(min = 0, max = 30, message = "ペアの名前は30文字以内で入力してください")
+	@Pattern(regexp="^\\S*$", message="ペアの名前を入力してください")
+	private String pairName;
+	
 	@NotNull
 	@Size(min = 0, max = 30, message = "対戦相手の名前は30文字以内で入力してください")
 	@Pattern(regexp="^\\S+$", message="対戦相手の名前を入力してください")

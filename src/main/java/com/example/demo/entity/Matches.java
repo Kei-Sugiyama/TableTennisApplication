@@ -29,6 +29,8 @@ public class Matches {
 	@ManyToOne //Usersエンティティとの結合：JPQL
 	@JoinColumn(name="users_id",referencedColumnName = "id")//DBにおける外部キー列名 Usersエンティティのidと結合
 	private Users users;
+	@Column(name="pair_name")
+	private String pairName;
 	@Column(name=" rival_name",nullable=false)
 	private String rivalName;
 	@Column(name = "rival_name2")

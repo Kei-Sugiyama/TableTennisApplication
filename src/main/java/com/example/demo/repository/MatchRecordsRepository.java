@@ -11,15 +11,16 @@ import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.entity.Matches;
 
 public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
-	@Query("SELECT new com.example.demo.dto.RecordDTO(m.id, m.date, m.name, u.userName, m.rivalName,m.rivalName2) "
-	            + "FROM Matches m JOIN m.users u WHERE u.Id = :usersId ORDER BY m.id Desc")
+	@Query("SELECT new com.example.demo.dto.RecordDTO(m.id, m.date, m.name,u.userName,m.pairName, "
+			+ "m.rivalName,m.rivalName2) FROM Matches m JOIN m.users u WHERE u.Id = :usersId ORDER BY m.id Desc")
 	public List<RecordDTO> findRecordDByUserId(@Param("usersId")Integer usersId);
 	
 	@Query("SELECT m FROM Matches m WHERE id = :matchId")
 	public Matches findByMatchId(@Param("matchId")Integer matchId);
 	
 	@Query("SELECT new com.example.demo.dto.RecordPropertiesDTO(m.id,m.typeId,m.setsCountId, m.date,"
-			+ "m.name, u.userName,m.rivalName,m.rivalName2, m.comment) FROM Matches m JOIN m.users u WHERE m.id = :matchId")
+			+ "m.name, u.userName,m.pairName,m.rivalName,m.rivalName2, m.comment) "
+			+ "FROM Matches m JOIN m.users u WHERE m.id = :matchId")
 	public RecordPropertiesDTO findPropertiesByMatchId(@Param("matchId")Integer matchId);
 	
 	public void deleteById(Integer id);

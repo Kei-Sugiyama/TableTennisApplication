@@ -33,6 +33,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.form__controll{
 							width :300px;
 							margin:0px 0px 15px 0px;}
+			.form__controll--pair{width :300px;
+									margin:0px 0px 15px 0px;}
 			.form__controll--rival1{width :300px;
 									margin:0px 0px 15px 0px;}
 			.form__controll--rival2{width :300px;
@@ -80,6 +82,11 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</select>
 				<p class="form__error" th:if="${#fields.hasErrors('setsCount')}" th:errors="*{setsCount}"></p>
 			</div>
+			<div class="form__controll--pair" style="display: none">
+				<label class="form__controll--label" for="pairName">ペア名：</label>
+				<input type="text" th:field="*{pairName}" placeholder="ダブルスのペアの名前">
+				<p class="form__error" th:if="${#fields.hasErrors('pairName')}" th:errors="*{pairName}"></p>
+			</div>
 			<div class="form__controll--rival1">
 				 <label class="form__controll--label" for="rivalName">対戦相手名：</label>
 				 <input id = "form__controll--rival1Input" type="text" th:field="*{rivalName}" placeholder="">
@@ -93,23 +100,27 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<button type="submit">次へ</button>
 		</form>
         <script>
-	          const types = document.getElementById("form__controll--typesSelect");
+	         const types = document.getElementById("form__controll--typesSelect");
+			 const pairDiv = document.querySelector('div[class="form__controll--pair"]');
 	         const rival1Input = document.getElementById("form__controll--rival1Input");
 	         const rival2Div = document.querySelector('div[class="form__controll--rival2"]');
 	            types.addEventListener("change",(event) => {
 	            // コールバック関数の引数にevent情報を渡す。event.Targetはイベント発火したHTML要素。
 	            if (event.target.value === '2') {
 	                // ダブルスなら表示
+					pairDiv.style.display = "block";
 	                rival2Div.style.display = 'block';
 	                rival1Input.placeholder = "選手１";
 	            } else {
 	                // シングルスなら非表示
+					pairDiv.style.display = "none";
 	                rival2Div.style.display = 'none';
 	               rival1Input.placeholder = "";
 	                }
 	            });
 	            // ページ読み込み時の初期状態もチェック
 	            if (types.value === '2') {
+					pairDiv.style.display = "block";
 	                rival2Div.style.display = 'block';
 	               rival1Input.placeholder = "選手１";
 	            }

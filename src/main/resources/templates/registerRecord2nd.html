@@ -55,6 +55,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			.table__widestCell--form{width:30px;
 									height:18px;
 									}
+			.table__widerCell--pairName{display:inline-block;
+										margin: 0px 0px 15px 0px;
+												}
 			.table__widerCell--rivalName{display:inline-block;
 										margin: 0px 0px 15px 0px;
 												}
@@ -93,7 +96,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<tbody>
 					<tr>
 						<td class="table__widerCell--data">
-							<span th:text="${#authentication.principal.username}">ユーザー名</span>
+							<span th:if="${session.registerRecord1stForm.pairName==null}">
+								[[${#authentication.principal.username}]]
+							</span>
+							<span th:if="${session.registerRecord1stForm.pairName!=null}">
+								<span class="table__widerCell--pairName">
+									[[${#authentication.principal.username}]]</span>
+								<span  class="table__widerCell--pairName">
+									[[${session.registerRecord1stForm.pairName}]]</span>
+							</span>
 						</td>
 						<td>
 							<div class="table__widestCell--scores" th:each="set, stat :*{sets}">

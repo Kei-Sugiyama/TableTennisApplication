@@ -75,7 +75,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<tr>
 					<td th:text="${record.date}">2025/8/25</td>
 					<td th:text="${record.matchName}">厚木オープン1試合目</td>
-					<td th:text="${record.userName}">テス男</td>
+					<td >
+						<span th:if="${record.pairName == null}">
+							[[${#authentication.principal.username}]]
+						</span>
+						<span th:if="*{record.pairName!=null}">
+							[[${#authentication.principal.username}]]<br>[[*{pairName}]]
+						</span>
+					</td>
 					<td class="table__wideCell--set" th:text="${record.userSet}">3</td>
 					<td class="table__wideCell--set">
 						<span th:each="scores : ${record.recordScores}">

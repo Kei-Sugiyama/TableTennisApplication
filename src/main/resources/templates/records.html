@@ -71,34 +71,34 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<th>削除</th>
 				</tr>
 			</thead>
-			<tbody th:each="record : ${matchesRecords}">
+			<tbody th:each="record : ${matchesRecords}" th:object="${record}">
 				<tr>
-					<td th:text="${record.date}">2025/8/25</td>
-					<td th:text="${record.matchName}">厚木オープン1試合目</td>
+					<td th:text="*{date}">2025/8/25</td>
+					<td th:text="*{matchName}">厚木オープン1試合目</td>
 					<td >
-						<span th:if="${record.pairName == null}">
+						<span th:if="*{pairName == null}">
 							[[${#authentication.principal.username}]]
 						</span>
-						<span th:if="*{record.pairName!=null}">
+						<span th:if="*{pairName != null}">
 							[[${#authentication.principal.username}]]<br>[[*{pairName}]]
 						</span>
 					</td>
-					<td class="table__wideCell--set" th:text="${record.userSet}">3</td>
+					<td class="table__wideCell--set" th:text="*{userSet}">3</td>
 					<td class="table__wideCell--set">
-						<span th:each="scores : ${record.recordScores}">
-							<span th:if="${scores.userScore!=null && scores.rivalScore!=null}">
-								[[${scores.userScore}]]-[[${scores.rivalScore}]]
+						<span th:each="scores : *{recordScores}" th:object="${scores}">
+							<span th:if="*{userScore!=null && rivalScore!=null}">
+								[[*{userScore}]]-[[*{rivalScore}]]
 							</span>
 						</span>
 						<br>
 					</td>
-					<td class="table__wideCell--set" th:text="${record.rivalSet}">0</td>					
+					<td class="table__wideCell--set" th:text="*{rivalSet}">0</td>					
 					<td >
-						<span th:if="${record.rivalName2==null}">
-							[[${record.rivalName}]]
+						<span th:if="*{rivalName2==null}">
+							[[*{rivalName}]]
 						</span>
-						<span th:if="${record.rivalName2!=null}">
-							[[${record.rivalName}]]<br>[[${record.rivalName2}]]
+						<span th:if="*{rivalName2!=null}">
+							[[*{rivalName}]]<br>[[*{rivalName2}]]
 						</span>
 					</td>
 					<td class="table__wideCell--property">

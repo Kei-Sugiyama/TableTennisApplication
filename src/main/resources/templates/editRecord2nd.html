@@ -56,7 +56,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									height:18px;
 									}
 			.table__widerCell--pairName{display:inline-block;
-										margin: 0px 0px 15px 0px;
+											margin: 0px 0px 15px 0px;
 										}
 		    .table__widerCell--rivalName{display:inline-block;
 									margin: 0px 0px 15px 0px;
@@ -101,8 +101,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							<span th:if="${session.registerRecord1stForm.pairName!=null
 								&& session.registerRecord1stForm.types==2}">
 								<span class="table__widerCell--pairName">
-									[[${#authentication.principal.username}]]</span>
-								<span  class="table__widerCell--pairName">
+									[[${#authentication.principal.username}]]</span><br>
+								<span class="table__widerCell--pairName">
 									[[${session.registerRecord1stForm.pairName}]]</span>
 							</span>
 							<span th:if="${session.registerRecord1stForm.pairName!=null
@@ -132,7 +132,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							<span th:if="${session.registerRecord1stForm.rivalName2!=null
 											&& session.registerRecord1stForm.types==2}">
 								<span class="table__widerCell--rivalName">
-									[[${session.registerRecord1stForm.rivalName}]]</span>
+									[[${session.registerRecord1stForm.rivalName}]]</span><br>
 								<span  class="table__widerCell--rivalName">
 									[[${session.registerRecord1stForm.rivalName2}]]</span>
 							</span>

@@ -87,7 +87,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									[[${#authentication.principal.username}]]
 								</span>
 								<span th:if="*{pairName!=null}">
-									[[${#authentication.principal.username}]]<br>[[*{{pairName}}]]
+									[[${#authentication.principal.username}]]<br>[[*{pairName}]]
 								</span>
 							</td>
 							<td class="table__wideCell--set" th:text="*{userSet}">3</td>

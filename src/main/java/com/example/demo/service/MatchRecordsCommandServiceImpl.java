@@ -139,6 +139,7 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		registerRecord1stForm.setMatchName(dto.getMatchName());
 		registerRecord1stForm.setTypes(dto.getTypeId());
 		registerRecord1stForm.setSetsCount(dto.getSetsCountId());
+		registerRecord1stForm.setPairName(dto.getPairName());
 		registerRecord1stForm.setRivalName(dto.getRivalName());
 		registerRecord1stForm.setRivalName2(dto.getRivalName2());
 		

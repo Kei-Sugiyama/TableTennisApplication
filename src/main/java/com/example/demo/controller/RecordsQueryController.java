@@ -18,7 +18,12 @@ public class RecordsQueryController {
 	
 	@GetMapping("/records")
 	public String showRecords(Model model,@AuthenticationPrincipal LoginUserDetails userDetails) {
-		model.addAttribute("matchesRecords", matchRecordsQueryService.findUserRecords(userDetails.getId()));		
+		model.addAttribute("matchesRecords", matchRecordsQueryService.findUserRecords(userDetails.getId()));
+		//**********************************debug****************************
+		System.out.println("**********************************debug****************************");
+		matchRecordsQueryService.findUserRecords(userDetails.getId())
+						.forEach((elm)->System.out.println(elm.getPairName()));
+		
 		return "records";
 	}
 	@GetMapping("/recordsProperties")

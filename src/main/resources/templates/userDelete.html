@@ -3,15 +3,8 @@
 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>User Information</title>
+<title>User Delete</title>
 <style>
-	*,
-	*::before,
-	*::after {
-		  margin: 0;
-		  padding: 0;
-		  box-sizing: border-box;
-		}
 		header {
 				    margin-bottom: 30px;
 				    border-bottom: 2px solid #ddd;
@@ -28,19 +21,19 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				    color: #444;
 			}
 
-			a {		
-					display: inline-block;
-					margin: 0px 0px 10px 0px;
+			a {
 				    color: #007bff; /* 鮮やかなリンク色 */
 				    text-decoration: none; /* 下線を削除 */
 				    font-weight: 700;
+					font-size: 20px;
 				}
 
 			a:hover {
 				    text-decoration: underline; /* ホバーで下線を表示 */
 				}
-			.top{font-size: 20px;
-				margin: 0px 0px 15px 0px;}
+			.top{font-size: 30px;
+				margin: 0px 0px 20px 0px;}
+				
 			.userInformation{margin : 0px 0px 40px 0px;}
 			.userInformation__item{margin: 0px 0px 10px 0px;
 									font-size: 18px;}
@@ -51,10 +44,16 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <body>
 	<header>
-		<h1>User Information</h1>
+		<h1>User Delete</h1>
 	</header>
 	<main>
-		<p class="top"><strong>会員情報</strong></p>
+		<p class="top">
+			<strong>
+				以下の会員情報を削除します。<br>よろしいですか？
+			</strong>
+			<br>
+			<a href="userInformation.html" th:href="@{/userInformation}">いいえ</a>
+		</p>
 		<div class="userInformation" th:object="${user}">
 			<div class="userInformation__item">
 				<span>ユーザーID：</span><span th:text="*{loginId}"></span>
@@ -63,11 +62,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				<span>ユーザー名：</span><span th:text="*{userName}"></span>
 	 		</div>
 		</div>
-			<a href="userEdit.html" th:href="@{/userEdit}">会員情報編集</a>
-			<br>
-			<a href="userDelete.html" th:href="@{/userDelete}">会員情報削除</a>			
-			<br>
-			<a href="index.html" th:href="@{/index}">トップ</a>
+		<a href="userDeleteOk.html" th:href="@{/userDeleteOut}">削除</a>
 	</main>
 </body>
 </html>

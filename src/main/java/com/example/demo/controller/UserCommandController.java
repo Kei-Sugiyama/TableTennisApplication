@@ -87,4 +87,15 @@ public class UserCommandController {
 			}
 		}
 	}
+	@GetMapping("/userDelete")
+	public String showDeleteUser(@AuthenticationPrincipal LoginUserDetails userDetails,Model model) {
+		Users user =  userQueryService.findUser(userDetails.getLoginId());
+		model.addAttribute("user",user);
+		return "userDelete";
+	}
+	@GetMapping("/userDeleteOut")
+	public String deleteUser(@AuthenticationPrincipal LoginUserDetails userDetails) {
+		userCommandService.deleteUser(userDetails.getId());
+		return "userDeleteOk";
+	}
 }

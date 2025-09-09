@@ -19,7 +19,6 @@ public class UserQueryController {
 	@GetMapping("/userInformation")
 	public String showUserInformation(@AuthenticationPrincipal LoginUserDetails userDetails,Model model) {
 		Users user = userQueryService.findUser(userDetails.getLoginId());
-		System.out.println(userDetails.getLoginId()+"debug****************************");
 		model.addAttribute("user", user);
 
 		return "userInformation";

@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -13,6 +14,8 @@ public class LoginController {
 	}
 	@GetMapping("/login")
 	public String showLogin(RegisterForm registerForm) {
+		//既にある認証情報を削除
+		SecurityContextHolder.clearContext();
 		return "login";
 	}
 }

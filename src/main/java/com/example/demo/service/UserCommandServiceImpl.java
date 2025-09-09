@@ -1,11 +1,16 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.demo.dto.RecordDTO;
 import com.example.demo.entity.Users;
 import com.example.demo.form.RegisterForm;
+import com.example.demo.repository.MatchRecordsRepository;
+import com.example.demo.repository.SetsRepository;
 import com.example.demo.repository.UsersRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +20,9 @@ import lombok.RequiredArgsConstructor;
 public class UserCommandServiceImpl implements UserCommandService {
 	private final UsersRepository usersRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final MatchRecordsRepository matchRecordsRepository;
+	private final SetsRepository setsRecordsRepository;
+	
 	
 	@Override
 	@Transactional
@@ -57,5 +65,18 @@ public class UserCommandServiceImpl implements UserCommandService {
 			user.setRole("GENERAL");
 			usersRepository.save(user);
 			return null;}
+	}
+	
+	@Override
+	@Transactional
+	public void deleteUser(Integer userId) {
+		//userIdを外部キーで参照するmatchesと、matchesを外部キーで参照するsetsを削除
+		List<RecordDTO> list = matchRecordsRepository.findRecordDByUserId(userId);
+		List<Integer> matchIdList = list.stream().map(elm->elm.getId()).toList();
+		matchIdList.forEach(matchId -> setsRecordsRepository.deleteByMatchesId(matchId));
+		matchIdList.forEach(matchId -> matchRecordsRepository.deleteById(matchId));
+		
+		//userの削除
+		usersRepository.deleteById(userId);
 	}
 }

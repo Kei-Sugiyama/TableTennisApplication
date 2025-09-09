@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>User Delete Success</title>
+<style>
+		header {
+				    margin-bottom: 30px;
+				    border-bottom: 2px solid #ddd;
+				    padding-bottom: 10px;
+				}
+			body {
+				    font-family: 'Roboto', sans-serif;
+				    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+				    color: #444; /* 読みやすい濃い色 */
+				    padding: 20px;
+				}
+			h1 {
+				    font-size: 28px;
+				    color: #444;
+			}
+
+			a {
+				    color: #007bff; /* 鮮やかなリンク色 */
+				    text-decoration: none; /* 下線を削除 */
+				    font-weight: 700;
+					font-size: 20px;
+				}
+
+			a:hover {
+				    text-decoration: underline; /* ホバーで下線を表示 */
+				}
+			.top{font-size: 30px;
+				margin: 0px 0px 20px 0px;}
+</style>
+</head>
+<body>
+	<header>
+			<h1>User Delete</h1>
+	</header>
+	<main>
+		<p class="top">
+			<strong>
+					会員情報を削除しました。
+			</strong>
+		</p>
+		<a href="login.html" th:href="@{/login}">ログイン画面へ</a>
+	</main>
+</body>
+</html>

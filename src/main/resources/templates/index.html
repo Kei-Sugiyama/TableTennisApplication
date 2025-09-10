@@ -31,6 +31,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			    text-decoration: underline; /* ホバーで下線を表示 */
 			}
 		.ul__li{margin-bottom:10px;}
+		.link-button {
+		    background: none;
+		    border: none;
+		    padding: 0;
+		    color: #007bff;
+		    cursor: pointer;
+		    text-decoration: none; /* 下線を削除 */
+		    font-family: inherit;   
+		    font-size: inherit;     
+		    font-weight: 700;    
+		}
+
+		.link-button:hover {
+		    color: #0056b3;
+		    text-decoration: underline; /* ホバーで下線を表示 */
+		}
 </style>
 </head>
 <body>
@@ -51,7 +67,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<li class="ul__li" sec:authorize="authenticated">
 				<a href="userInformation.html" th:href="@{/userInformation}">User Information</a>
 			</li>
-			<li sec:authorize="authenticated"><a href="login.html" th:href="@{/login}">EXIT</a>
+			<li sec:authorize="authenticated">
+				<form th:action="@{/logout}" method="post">
+			    <button type="submit" class="link-button">EXIT</button>
+			</form>
 			</li>
 		</ul>
 		

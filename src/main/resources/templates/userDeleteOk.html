@@ -33,6 +33,22 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				}
 			.top{font-size: 30px;
 				margin: 0px 0px 20px 0px;}
+			.link-button {
+						    background: none;
+						    border: none;
+						    padding: 0;
+						    color: #007bff;
+						    cursor: pointer;
+						    text-decoration: none; /* 下線を削除 */
+						    font-family: inherit;   
+						    font-size: inherit;     
+						    font-weight: 700;    
+						}
+
+			.link-button:hover {
+						    color: #0056b3;
+						    text-decoration: underline; /* ホバーで下線を表示 */
+						}
 </style>
 </head>
 <body>
@@ -45,7 +61,9 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					会員情報を削除しました。
 			</strong>
 		</p>
-		<a href="login.html" th:href="@{/login}">ログイン画面へ</a>
+		<form th:action="@{/logout}" method="post">
+			 <button type="submit" class="link-button">トップへ</button>
+		</form>
 	</main>
 </body>
 </html>

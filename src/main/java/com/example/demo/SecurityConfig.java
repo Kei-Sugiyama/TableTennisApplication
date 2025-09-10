@@ -28,7 +28,10 @@ public class SecurityConfig {
 	            .failureUrl("/login?error=true")
 	        )
 	        .logout(logout -> logout
-	            .logoutSuccessUrl("/")
+	        	.logoutUrl("/logout")
+	        	.logoutSuccessUrl("/")
+	        	.invalidateHttpSession(true)
+	        	.deleteCookies("JSESSIONID")
 	        );
 		
 	    return http.build();

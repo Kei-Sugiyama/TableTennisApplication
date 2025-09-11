@@ -52,9 +52,13 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 										margin:0px 0px 5px 0px;
 										text-align: center;
 										border-bottom : 1px lightslategray solid ;}
-			.table__widestCell--form{width:30px;
-									height:18px;
-									}
+		
+			.table__widestCell--myScore	{width:30px;
+										height:18px;
+										}
+		    .table__widestCell--rivalScore{width:30px;
+										height:18px;
+										}
 			.table__widerCell--pairName{display:inline-block;
 										margin: 0px 0px 15px 0px;
 												}
@@ -108,14 +112,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</td>
 						<td>
 							<div class="table__widestCell--scores" th:each="set, stat :*{sets}">
-								<input class="table__widestCell--form" 
+								<input class="table__widestCell--myScore" 
 									type="text" th:field="*{sets[__${stat.index}__].myScore}">
 									<!--sets[0].myScoreからスタート。${}を__で囲むことで、先に読み込まれる-->
 									<!--リストへのバインディングはフィールド名[インデックス]番号.フィールド名となる-->
 								<span class="table__widestCell--text" th:text="${stat.count}">
 									1セット目のスコア
 								</span>
-								<input class="table__widestCell--form"
+								<input id="rivalScore" class="table__widestCell--rivalScore"
 									type="text" th:field="*{sets[__${stat.index}__].rivalScore}">
 							</div>
 						</td>
@@ -156,6 +160,23 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<button type="submit">登録</button>
 				</div>
 		</form>
+			<script>
+				const myScore = document.querySelectorAll(".table__widestCell--myScore");
+				const rivalScore = document.querySelectorAll(".table__widestCell--rivalScore");
+				
+				for(let i = 0;i < myScore.length;i++){
+					myScore[i].addEventListener("change",(event)=>{
+					if(event.target.value === 10 ){
+						rivalScore[i].value = 12;
+					}else if(event.target.value < 10){
+						rivalScore[i].value = 11;
+					}
+				  }
+					)
+				  }
+
+				
+			</script>
 	</main>
 </body>
 </html>

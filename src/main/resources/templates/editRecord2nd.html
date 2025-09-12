@@ -161,7 +161,14 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 					<input class="form__controll--comment" type="text" th:field="*{comment}">
 					<p th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></p>
 				</div>
-				<div class="form__controll" th:each="set, stat :*{sets}">
+				<div class="form__controll form__controll--setsCommentIs">
+					<p>セットごとのコメント編集：</p>
+					<input id="yesComment" type="radio" name="setsComment" value="1">
+					<label for="yesComment">する</label>
+					<input id="noComment" type="radio" name="setsComment" value="2" checked>
+					<label for="noComment">しない</label>					
+				</div>
+				<div class="form__controll form__controll--setsComment" th:each="set, stat :*{sets}" style="display: none;">
 					<label for="comment" th:text="|${stat.count}セット目の所感：|">セット目の所感：</label>
 					<input class="form__controll--comment" type="text" th:field="*{sets[__${stat.index}__].comment}">
 					<p th:if="${#fields.hasErrors('*{sets[__${stat.index}__].comment}')}" 
@@ -199,6 +206,20 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									}
 							})
 						})	
+						
+						const setsCommentIs = document.querySelector(".form__controll--setsCommentIs");
+								const setsComment = document.querySelectorAll(".form__controll--setsComment");
+								setsCommentIs.addEventListener("click",(event)=>{
+									if(event.target.value==="1"){
+										setsComment.forEach((comment)=>{
+											comment.style.display = "block";
+										})
+									}else if(event.target.value==="2"){
+										setsComment.forEach((comment)=>{
+											comment.style.display = "none";
+											})
+										}
+									});
 				</script>
 	</main>
 </body>

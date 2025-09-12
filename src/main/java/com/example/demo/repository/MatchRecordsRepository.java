@@ -11,7 +11,7 @@ import com.example.demo.dto.RecordPropertiesDTO;
 import com.example.demo.entity.Matches;
 
 public interface MatchRecordsRepository extends JpaRepository<Matches,Integer> {
-	@Query("SELECT new com.example.demo.dto.RecordDTO(m.id, m.date, m.name,u.userName,m.pairName, "
+	@Query("SELECT new com.example.demo.dto.RecordDTO(m.id, m.date,m.setsCountId, m.name,u.userName,m.pairName, "
 			+ "m.rivalName,m.rivalName2) FROM Matches m JOIN m.users u WHERE u.Id = :usersId ORDER BY m.id Desc")
 	public List<RecordDTO> findRecordDByUserId(@Param("usersId")Integer usersId);
 	

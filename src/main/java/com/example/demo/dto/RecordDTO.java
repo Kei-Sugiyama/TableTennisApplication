@@ -10,6 +10,7 @@ import lombok.Data;
 public class RecordDTO {
 	private  Integer id;
 	private  LocalDate date;
+	private Integer setsCountId;
 	private  String matchName;
 	private  String userName;
 	private  String pairName;	
@@ -20,10 +21,11 @@ public class RecordDTO {
 	private  List<RecordScoresDTO> recordScores;
 	
 	//JPQL用コンストラクタ
-	public RecordDTO(Integer id, LocalDate date,String matchName,String userName,String pairName,
+	public RecordDTO(Integer id, LocalDate date,Integer setsCountId,String matchName,String userName,String pairName,
 			String rivalName,String rivalName2) {
 		this.id = id;
 		this.date = date;
+		this.setsCountId = setsCountId;
 		this.matchName = matchName;
 		this.userName = userName;
 		this.pairName = pairName;

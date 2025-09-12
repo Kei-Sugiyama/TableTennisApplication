@@ -30,7 +30,15 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		a:hover {
 			    text-decoration: underline; /* ホバーで下線を表示 */
 			}
-	.table__wideCell--set{width: 50px;
+	.table__wideCell--userSet{width: 50px;
+						text-align: center;
+						font-size: 18px;
+						}
+	.table__wideCell--rivalSet{width: 50px;
+							text-align: center;
+							font-size: 18px;
+							}
+	.table__wideCell--score{width: 50px;
 						text-align: center;
 						font-size: 18px;
 						}
@@ -47,6 +55,10 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							font-size: 18px;	
 	                        }				
 	table, th, td {border: 1px solid black;}
+	.winner{text-align: center;
+		font-size: 25px;
+		color:red;
+		font-weight: 550;}
 </style>
 </head>
 <body>
@@ -83,8 +95,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 							[[${#authentication.principal.username}]]<br>[[*{pairName}]]
 						</span>
 					</td>
-					<td class="table__wideCell--set" th:text="*{userSet}">3</td>
-					<td class="table__wideCell--set">
+					<td class="table__wideCell--userSet" th:text="*{userSet}">3</td>
+					<td class="table__wideCell--score">
 						<span th:each="scores : *{recordScores}" th:object="${scores}">
 							<span th:if="*{userScore!=null && rivalScore!=null}">
 								[[*{userScore}]]-[[*{rivalScore}]]
@@ -92,7 +104,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 						</span>
 						<br>
 					</td>
-					<td class="table__wideCell--set" th:text="*{rivalSet}">0</td>					
+					<td class="table__wideCell--rivalSet" th:text="*{rivalSet}">0</td>					
 					<td >
 						<span th:if="*{rivalName2==null}">
 							[[*{rivalName}]]
@@ -113,7 +125,38 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</tr>
 			</tbody>
 		</table>
-
+		<script th:inline="javascript">
+		    const userSet = document.querySelectorAll(".table__wideCell--userSet");
+		    // ThymeleafモデルのmatchesRecordsをJavaScriptの定数に代入
+		    const matchesRecords = /*[[${matchesRecords}]]*/ [];
+			matchesRecords.forEach((record,index)=>{
+				//各recordの総セット数に応じ、勝者のセットが赤文字表示される
+				switch(record.setsCountId){
+					case 1: if(parseInt(userSet[index].textContent)===1) userSet[index].classList.toggle("winner");
+							break;
+					case 2: if(parseInt(userSet[index].textContent)===2) userSet[index].classList.toggle("winner");
+							break;
+					case 3: if(parseInt(userSet[index].textContent)===3) userSet[index].classList.toggle("winner");
+							break;
+					case 4: if(parseInt(userSet[index].textContent)===4) userSet[index].classList.toggle("winner");
+							break;						
+				}
+			})
+			const rivalSet = document.querySelectorAll(".table__wideCell--rivalSet");
+			matchesRecords.forEach((record,index)=>{
+				//各recordの総セット数に応じ、勝者のセットが赤文字表示される
+				switch(record.setsCountId){
+					case 1: if(parseInt(rivalSet[index].textContent)===1) rivalSet[index].classList.toggle("winner");
+							break;
+					case 2: if(parseInt(rivalSet[index].textContent)===2) rivalSet[index].classList.toggle("winner");
+							break;
+					case 3: if(parseInt(rivalSet[index].textContent)===3) rivalSet[index].classList.toggle("winner");
+							break;
+					case 4: if(parseInt(rivalSet[index].textContent)===4) rivalSet[index].classList.toggle("winner");
+							break;
+				}
+			})
+		</script>
 	</main>		
 </body>
 </html>

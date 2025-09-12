@@ -38,14 +38,24 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	.article{margin:0px 0px 20px 0px;
 			}
 	.table{margin:10px 0px 10px 0px;}
-	.table__wideCell--set{width: 50px;
+	.table__wideCell--score{width: 50px;
+							text-align: center;
+							font-size: 18px;
+							}
+	.table__wideCell--userSet{width: 50px;
+							text-align: center;
+							font-size: 18px;
+							}
+	.table__wideCell--rivalSet{width: 50px;
 							text-align: center;
 							font-size: 18px;
 							}
 	.comment{margin:10px 0px 10px 0px ;}
 	table, th, td {border: 1px solid black;}
-	
-
+	.winner{text-align: center;
+		font-size: 25px;
+		color:red;
+		font-weight: 550;}
 </style>
 </head>
 <body>
@@ -90,8 +100,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 									[[${#authentication.principal.username}]]<br>[[*{pairName}]]
 								</span>
 							</td>
-							<td class="table__wideCell--set" th:text="*{userSet}">3</td>
-							<td class="table__wideCell--set">
+							<td class="table__wideCell--userSet" th:text="*{userSet}">3</td>
+							<td class="table__wideCell--score">
 								<span th:each="scores : *{recordScores}">								
 									<span th:if="${scores.userScore!=null && scores.rivalScore!=null}">
 										[[${scores.userScore}]]-[[${scores.rivalScore}]]
@@ -99,7 +109,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 								</span>
 								<br>
 							</td>
-							<td class="table__wideCell--set" th:text="*{rivalSet}">0</td>					
+							<td class="table__wideCell--rivalSet" th:text="*{rivalSet}">0</td>					
 							<td>							
 								<span th:if="*{rivalName2==null}">[[*{rivalName}]]</span>
 								<span th:if="*{rivalName2!=null}">[[*{rivalName}]]<br>[[*{{rivalName2}}]]</span>
@@ -116,5 +126,33 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			</div>
 		</article>	
 	</main>
+	<script th:inline="javascript">
+			    const userSet = document.querySelector(".table__wideCell--userSet");
+			    // ThymeleafモデルのmatchesRecordsをJavaScriptの定数に代入
+			    const recordProperties = /*[[${recordProperties}]]*/ [];
+					//総セット数に応じ、勝者のセットが赤文字表示される
+					switch(recordProperties.setsCountId){
+						case 1: if(parseInt(userSet.textContent)===1) userSet.classList.toggle("winner");
+								break;
+						case 2: if(parseInt(userSet.textContent)===2) userSet.classList.toggle("winner");
+								break;
+						case 3: if(parseInt(userSet.textContent)===3) userSet.classList.toggle("winner");
+								break;
+						case 4: if(parseInt(userSet.textContent)===4) userSet.classList.toggle("winner");
+								break;						
+					}
+				const rivalSet = document.querySelector(".table__wideCell--rivalSet");
+					//総セット数に応じ、勝者のセットが赤文字表示される
+					switch(recordProperties.setsCountId){
+						case 1: if(parseInt(rivalSet.textContent)===1) rivalSet.classList.toggle("winner");
+								break;
+						case 2: if(parseInt(rivalSet.textContent)===2) rivalSet.classList.toggle("winner");
+								break;
+						case 3: if(parseInt(rivalSet.textContent)===3) rivalSet.classList.toggle("winner");
+								break;
+						case 4: if(parseInt(rivalSet.textContent)===4) rivalSet.classList.toggle("winner");
+								break;
+					}
+			</script>
 </body>
 </html>

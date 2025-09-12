@@ -161,19 +161,33 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 				</div>
 		</form>
 			<script>
-				const myScore = document.querySelectorAll(".table__widestCell--myScore");
-				const rivalScore = document.querySelectorAll(".table__widestCell--rivalScore");
+				const myScores = document.querySelectorAll(".table__widestCell--myScore");
+				const rivalScores = document.querySelectorAll(".table__widestCell--rivalScore")
 				
-				for(let i = 0;i < myScore.length;i++){
-					myScore[i].addEventListener("change",(event)=>{
-					if(event.target.value === 10 ){
-						rivalScore[i].value = 12;
-					}else if(event.target.value < 10){
-						rivalScore[i].value = 11;
-					}
-				  }
-					)
-				  }
+				myScores.forEach((myScore,index)=>{
+					 myScore.addEventListener("input",(event)=>{
+						const myScoreValue = parseInt(event.target.value, 10);//valueを整数(10進数)に変換
+							if(myScoreValue === 10 ){
+								rivalScore[index].value = 12;
+							}else if(0 <= myScoreValue &&  myScoreValue < 10){
+								rivalScore[index].value = 11;
+							}else if(myScoreValue > 10){
+								rivalScore[index].value = myScoreValue + 2;
+							}
+				 		 })
+			 		})
+				rivalScores.forEach((rivalScore,index)=>{
+					rivalScore.addEventListener("input",(event)=>{
+						const rivalScoreValue = parseInt(event.target.value,10);
+							if(rivalScoreValue === 10){
+								myScores[index].value = 12;
+							}else if(0 <=  rivalScoreValue && rivalScoreValue < 10){
+								myScores[index].value = 11;
+							}else if(rivalScoreValue > 10){
+								myScores[index].value = rivalScoreValue + 2;
+							}
+					})
+				})
 
 				
 			</script>

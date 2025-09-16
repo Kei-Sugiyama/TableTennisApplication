@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dto.RecordPropertiesDTO;
+import com.example.demo.dto.RecordScoresPropertiesDTO;
 import com.example.demo.entity.Matches;
 import com.example.demo.entity.Sets;
 import com.example.demo.entity.Users;
@@ -151,12 +152,14 @@ public class MatchRecordsCommandServiceImpl implements MatchRecordsCommandServic
 		
 		//2ndFormの各セットにDTOの各セットのスコア・コメントを紐づけ
 		int count = 0;
-			for(Set set :registerRecord2ndForm.getSets()) {
-			set.setMyScore(dto.getRecordScores().get(count).getUserScore());
-			set.setRivalScore(dto.getRecordScores().get(count).getRivalScore());
-			set.setComment(dto.getRecordScores().get(count).getComment());
+		for(RecordScoresPropertiesDTO record : dto.getRecordScores()) {
+			Set set =  registerRecord2ndForm.getSets().get(count);
+			set.setMyScore(record.getUserScore());
+			set.setRivalScore(record.getRivalScore());
+			set.setComment(record.getComment());
 			count++;
 		}
+			
 		registerRecord2ndForm.setComment(dto.getComment());
 		return registerRecord2ndForm;
 	}

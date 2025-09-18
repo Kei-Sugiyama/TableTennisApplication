@@ -52,7 +52,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 		<p>
 			<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 		</p>
-		<form class="form" action="registerRecord2nd.html" th:action="@{/registerRecord2nd}" th:object="${registerRecord1stForm}"
+		<form class="form" action="registerRecord2nd.html" th:action="@{/registerRecord1stOut}" th:object="${registerRecord1stForm}"
 				 method="post">
 			<div class="form__controll">
 				 <label class="form__controll--label" for="date">日時：</label>

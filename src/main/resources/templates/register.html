@@ -49,7 +49,7 @@
 		<h1>会員登録</h1>
 	</header>
 	<main>
-		<form class="form" action="registerOk.html" th:action="@{/register}" method="post" th:object="${registerForm}">
+		<form class="form" action="registerOk.html" th:action="@{/registerOut}" method="post" th:object="${registerForm}">
 			<div class="form__input">
 				<label for="loginId">ログインID：</label>
 				<input type="text" th:field="*{loginId}">

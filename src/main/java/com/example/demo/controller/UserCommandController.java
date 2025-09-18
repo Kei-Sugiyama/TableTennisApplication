@@ -10,6 +10,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.details.LoginUserDetails;
 import com.example.demo.entity.Users;
@@ -38,7 +39,8 @@ public class UserCommandController {
 	}
 	@PostMapping("/userEditOut")
 	public String editUser(@AuthenticationPrincipal LoginUserDetails userDetails,
-			@Validated RegisterForm registerForm,BindingResult bindingResult,Model model) {
+			@Validated RegisterForm registerForm,BindingResult bindingResult,Model model,
+			RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			return "userEdit";
 		}else {
@@ -49,8 +51,7 @@ public class UserCommandController {
 				return "userEdit";
 			}
 			Users user = userQueryService.findUser(registerForm.getLoginId());
-			System.out.println("debug*******************"+ user);
-			model.addAttribute("user",user);
+			redirectAttributes.addFlashAttribute("user",user);
 			
 			//Authenticationオブジェクトの中のuserDetailsも更新する
 			UserDetails newUserDetails = loginUserDetailsService.loadUserByUsername(user.getLoginId());
@@ -63,16 +64,21 @@ public class UserCommandController {
 		    SecurityContextHolder.getContext().setAuthentication(newAuth);
 		    
 			
-			return "userEditOk";
+			return "redirect:/userEditOk";
 		}
+	}
+	@GetMapping("/userEditOk")
+	public String editUser() {
+		return "userEditOK";
 	}
 	
 	@GetMapping("/register")
 	public String showRegister(RegisterForm registerForm) {
 		return "register";
 	}
-	@PostMapping("/register")
-	public String register(@Validated RegisterForm registerForm,BindingResult bindingResult,Model model) {
+	@PostMapping("/registerOut")
+	public String register(@Validated RegisterForm registerForm,BindingResult bindingResult,Model model,
+			RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			return "register";
 		}
@@ -83,10 +89,18 @@ public class UserCommandController {
 				model.addAttribute("message", message);
 				return "register";
 			}else {
-				return "registerOk";
+				//リダイレクト先のみで参照できるオブジェクト
+				redirectAttributes.addFlashAttribute("registerForm",registerForm);
+				return "redirect:/registerOk";
 			}
 		}
 	}
+	@GetMapping("/registerOk")
+	public String register() {
+		return "registerOk";
+	}
+	
+	
 	@GetMapping("/userDelete")
 	public String showDeleteUser(@AuthenticationPrincipal LoginUserDetails userDetails,Model model) {
 		Users user =  userQueryService.findUser(userDetails.getLoginId());
@@ -96,6 +110,6 @@ public class UserCommandController {
 	@GetMapping("/userDeleteOut")
 	public String deleteUser(@AuthenticationPrincipal LoginUserDetails userDetails) {
 		userCommandService.deleteUser(userDetails.getId());
-		return "userDeleteOk";
+		return "redirect:/userDeleteOk";
 	}
 }

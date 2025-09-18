@@ -54,7 +54,7 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 			<p>
 				<a href="records.html" th:href="@{/records}">一覧へ戻る</a>
 			</p>
-			<form class="form" action="editRecord2nd.html" th:action="@{/editRecord2nd(matchId=${matchId})}" 
+			<form class="form" action="editRecord2nd.html" th:action="@{/editRecord1stOut(matchId=${matchId})}" 
 					th:object="${registerRecord1stForm}" method="post">
 				<div class="form__controll">
 					 <label class="form__controll--label" for="date">日時：</label>

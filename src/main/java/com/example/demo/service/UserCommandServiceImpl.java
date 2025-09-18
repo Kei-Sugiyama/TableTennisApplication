@@ -71,7 +71,7 @@ public class UserCommandServiceImpl implements UserCommandService {
 	@Transactional
 	public void deleteUser(Integer userId) {
 		//userIdを外部キーで参照するmatchesと、matchesを外部キーで参照するsetsを削除
-		List<RecordDTO> list = matchRecordsRepository.findRecordDByUserId(userId);
+		List<RecordDTO> list = matchRecordsRepository.findRecordByUserId(userId);
 		List<Integer> matchIdList = list.stream().map(elm->elm.getId()).toList();
 		matchIdList.forEach(matchId -> setsRecordsRepository.deleteByMatchesId(matchId));
 		matchIdList.forEach(matchId -> matchRecordsRepository.deleteById(matchId));

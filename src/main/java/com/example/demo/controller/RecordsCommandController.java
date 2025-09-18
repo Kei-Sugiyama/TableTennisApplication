@@ -10,6 +10,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.details.LoginUserDetails;
 import com.example.demo.dto.RecordPropertiesDTO;
@@ -34,14 +35,20 @@ public class RecordsCommandController {
 		}
 		return "registerRecord1st";
 	}
-	@PostMapping("/registerRecord2nd")
+	@PostMapping("/registerRecord1stOut")
 	public String showRegisterRecord2nd(@Validated RegisterRecord1stForm registerRecord1stForm,
 			BindingResult bindingResult,Model model,HttpSession session) {
 		if(bindingResult.hasErrors()) {
 			return "registerRecord1st";
 		}
 		session.setAttribute("registerRecord1stForm", registerRecord1stForm);
+		return "redirect:/registerRecord2nd";
+	}
+	
+	@GetMapping("/registerRecord2nd")
+	public String showRegisterRecord2nd(HttpSession session,Model model) {
 		//1stFormで選択したセット数に合わせ、2ndFormを生成する
+		RegisterRecord1stForm registerRecord1stForm = (RegisterRecord1stForm)session.getAttribute("registerRecord1stForm");
 		model.addAttribute("registerRecord2ndForm",matchRecordsCommandService.newRecord2ndForm(registerRecord1stForm));
 		return "registerRecord2nd";
 	}
@@ -73,9 +80,10 @@ public class RecordsCommandController {
 		model.addAttribute("matchId",matchId);
 		return "editRecord1st";
 	}
-	@PostMapping("/editRecord2nd")
+	@PostMapping("/editRecord1stOut")
 	public String showEditRecord2nd (@RequestParam Integer matchId,@Validated RegisterRecord1stForm registerRecord1stForm, 
-				BindingResult bindingResult,HttpSession session,Model model) {
+				BindingResult bindingResult,HttpSession session,RedirectAttributes redirectAttributes,
+				Model model) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("matchId",matchId);
 			return "editRecord1st";
@@ -88,10 +96,16 @@ public class RecordsCommandController {
 		RecordPropertiesDTO dto =  matchRecordsQueryService.findUserRecordProperties(matchId);
 		registerRecord2ndform = matchRecordsCommandService.bindResultTo2ndForm(dto,registerRecord2ndform);
 		
-		model.addAttribute("matchId",matchId);
-		model.addAttribute("registerRecord2ndForm", registerRecord2ndform);
+		//リダイレクト先でのみ使えるオブジェクト
+		redirectAttributes.addFlashAttribute("matchId",matchId);
+		redirectAttributes.addFlashAttribute("registerRecord2ndForm", registerRecord2ndform);
+		return "redirect:/editRecord2nd";
+	}
+	@GetMapping("/editRecord2nd")
+	public String showEditRecord2nd() {
 		return "editRecord2nd";
 	}
+	
 	@PostMapping("/editRecordOut")
 	public String editRecordOk(@Validated RegisterRecord2ndForm registerRecord2ndForm,BindingResult bindingResult
 			,HttpSession session,Model model,@RequestParam Integer matchId) {

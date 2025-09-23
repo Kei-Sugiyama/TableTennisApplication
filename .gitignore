@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# MySQLのデータとソケットを無視する
+mysql-data/

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security"> 
+<head>
+<meta charset="UTF-8">
+<title>Search Records</title>
+<style>
+	header {
+					    margin-bottom: 30px;
+					    border-bottom: 2px solid #ddd;
+						    padding-bottom: 10px;
+					}
+				body {
+					    font-family: 'Roboto', sans-serif;
+					    background-color: #f4f7f6; /* 少しグレーがかった背景色 */
+					    color: #444; /* 読みやすい濃い色 */
+					    padding: 20px;
+					}
+				h1 {
+					    font-size: 28px;
+					    color: #444;
+				}
+
+				a {
+					    color: #007bff; /* 鮮やかなリンク色 */
+					    text-decoration: none; /* 下線を削除 */
+					    font-weight: 700;
+					}
+
+				a:hover {
+					    text-decoration: underline; /* ホバーで下線を表示 */
+					}
+				.message{margin : 0px 0px 20px 0px;}
+				.message__direction{font-size:22px;
+									font-weight: 700;}
+				.form__controll{width :300px;
+								margin:0px 0px 20px 0px;}
+				.form{margin: 0px 0px 20px 0px;}
+				.form__controll--label{display:inline-block;
+									  width:115px;}
+				.form__error{ color: red;}
+				
+</style>
+</head>
+<body>
+	<header class="header">
+		<h1>SearchRecords</h1>
+	</header>
+	<p class="message">
+		<span class="message__direction">日付、対戦相手名を入力して検索してください。</span>
+		<br>※どちらか一方は必ず入力。
+	</p>
+	<form class="form" action="searchRecordsOut.html" th:action="@{/searchRecordsOut}" method="post" th:object="${searchForm}">
+		<div class="form__controll">
+			<label for="name">日付：</label>
+			<input type="date" th:field="*{date}">
+			<p class="form__error" th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></p>
+		</div>
+		<div class="form__controll">
+			<label for="name">名前：</label>
+			<input type="text" th:field="*{name}" placeholder="名前の一部でも検索可" >
+			<p class="form__error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		</div>
+		<div class="form__error">
+				<span th:if="${#fields.hasGlobalErrors()}" th:errors="*{}"></span>
+		</div>
+		<div class="form__action">
+			<button type="submit">検索</button>
+		</div>
+	</form>
+	<a href="records.html" th:href="@{/records}">試合結果一覧へ</a>
+</body>
+</html>

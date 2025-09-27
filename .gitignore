@@ -34,3 +34,6 @@ build/
 
 # MySQLのデータとソケットを無視する
 mysql-data/
+
+#localのapplication.propertiesの設定
+main/resources/application-local.properties
